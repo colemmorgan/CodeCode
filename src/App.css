@@ -11,6 +11,10 @@ body {
   font-family: "DM Sans", sans-serif;
 }
 
+:root {
+  color-scheme: dark;
+}
+
 .bgg {
   background: radial-gradient(
       50% 80% at 70% 10%,

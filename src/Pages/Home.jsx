@@ -113,7 +113,7 @@ function Card({title, desc}) {
   return (
    
     <div className="flex flex-col items-start max-w-96 w-full mx-4 mt-8 ">
-      <div className="px-4 pt-8 temp-b rounded-lg overflow-hidden relative h-52 group w-full cursor-pointer">
+      <div className="px-4 pt-8 temp-b rounded-lg overflow-hidden relative h-52 group w-full cursor-pointer  hover:bg-purple-300 transition-all">
       <div className="max-w-60 mx-auto shadow-md absolute w-full bottom-[-20px] left-1/2 -translate-x-1/2 group-hover:bottom-0 transition-all">
         <div className="w-full h-6 rounded-t-lg bg-gray-800 flex justify-start items-center space-x-1.5 px-3 ">
           <span className="w-2 h-2 rounded-full bg-red-400"></span>
