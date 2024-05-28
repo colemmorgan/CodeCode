@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import Nav from "../Components/Nav";
+
 
 
 function Home() {
@@ -8,33 +9,7 @@ function Home() {
 
   return (
     <>
-      <nav className=" bg-blue">
-        <div className=" h-16 px-8 max-w-[1280px] mx-auto flex items-center justify-between">
-          <div className="text-xl font-semibold">CodeCode</div>
-          <div className="">
-            <ul className="flex">
-              <li className="text-sm px-4 py-2 mr-10 link-hover rounded-lg cursor-pointer">
-                About
-              </li>
-              <li className="text-sm px-4 py-2 mr-10 link-hover rounded-lg cursor-pointer">
-                Students
-              </li>
-              <li className="text-sm px-4 py-2 mr-10 link-hover rounded-lg cursor-pointer">
-                Instructors
-              </li>
-              <li className="text-sm px-4 py-2 mr-10 link-hover rounded-lg cursor-pointer">
-                Contact
-              </li>
-            </ul>
-          </div>
-          <Link to={"/code"}>
-          <button className="rounded-lg  p-[2px] gradient-b group">
-            <p className="py-2 px-4 bg-greyBlue rounded-md text-sm group-hover:bg-blue transition-all ease">
-              Beta
-            </p>
-          </button></Link>
-        </div>
-      </nav>
+      <Nav/>
       <section className="bg-blue relative py-28 z-10">
         <img
           src="./HeroGradient.png"
@@ -57,7 +32,7 @@ function Home() {
           </div>
           {/*  */}
           <span className="py-1 px-4 border border-gray-700 rounded-lg text-xs bgg">
-            Introducing Edugator
+            Introducing CodeCode
           </span>
           <h1 className="mt-8 text-5xl text-center font-semibold line-height leading-tight text-greyText">
             Experience the <span className="gradient-text">Future</span> of{" "}
@@ -113,7 +88,7 @@ function Card({title, desc}) {
   return (
    
     <div className="flex flex-col items-start max-w-96 w-full mx-4 mt-8 ">
-      <div className="px-4 pt-8 temp-b rounded-lg overflow-hidden relative h-52 group w-full cursor-pointer  hover:bg-purple-300 transition-all">
+      <div className="px-4 pt-8 temp-b rounded-lg overflow-hidden relative h-52 group w-full cursor-pointer  hover:bg-green transition-all">
       <div className="max-w-60 mx-auto shadow-md absolute w-full bottom-[-20px] left-1/2 -translate-x-1/2 group-hover:bottom-0 transition-all">
         <div className="w-full h-6 rounded-t-lg bg-gray-800 flex justify-start items-center space-x-1.5 px-3 ">
           <span className="w-2 h-2 rounded-full bg-red-400"></span>

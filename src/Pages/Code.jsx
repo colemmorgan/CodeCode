@@ -13,13 +13,12 @@ export default function Code() {
       <Menu />
       <div class="grid grid-cols-2 grid-rows-5 gap-2 h-screen w-full p-3">
         <QuestionMenu />
-          <CodeEditor/>
-        <CodeResults/>
+        <CodeEditor />
+        <CodeResults />
       </div>
     </section>
   );
 }
-
 
 function QuestionMenu() {
   return (
@@ -52,23 +51,26 @@ function QuestionMenu() {
           <div className="bg-blue w-full px-4 rounded-md mt-3 py-1">
             <code className="block py-1">Input: [2,3,5]</code>
             <code className="block py-1">Output: True</code>
-            <code className="block py-1">Explanation: Each string can be rearranged to match another.</code>
+            <code className="block py-1">
+              Explanation: Each string can be rearranged to match another.
+            </code>
           </div>
           <p className="pt-5 font-semibold text-lg">Example 2:</p>
           <div className="bg-blue w-full px-4 rounded-md mt-3 py-1">
             <code className="block py-1">Input: [2,3,5]</code>
             <code className="block py-1">Output: True</code>
-            <code className="block py-1">Explanation: Each string can be rearranged to match another.</code>
-          </div>  
+            <code className="block py-1">
+              Explanation: Each string can be rearranged to match another.
+            </code>
+          </div>
         </div>
         <div className="pt-10">
-        <h5 className="text-2xl">Contraints</h5>
-        <ul className="py-1 list-disc pl-10">
-          <li className="pt-2">Must use the map function</li>
-          <li className="pt-2">Must use the map function</li>
-        </ul>
+          <h5 className="text-2xl">Contraints</h5>
+          <ul className="py-1 list-disc pl-10">
+            <li className="pt-2">Must use the map function</li>
+            <li className="pt-2">Must use the map function</li>
+          </ul>
         </div>
-        
       </div>
     </div>
   );
