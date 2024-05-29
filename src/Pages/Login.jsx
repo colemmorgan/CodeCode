@@ -4,6 +4,7 @@ import Nav from "../Components/Nav";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../firebase/firebase";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -27,12 +28,12 @@ export default function Login() {
       if (!newUser) return;
       navigate("/code");
     } catch {
-      alert(error.message);
+      toast.error(error.message, {position: 'top-center', autoClose: 3000, theme: "dark"})
     }
   };
 
   useEffect(() => {
-    if(error) alert(error)
+    if(error) toast.error(error.message, {position: 'top-center', autoClose: 3000, theme: "dark"})
   },[error])
   return (
     <>

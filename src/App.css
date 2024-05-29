@@ -79,3 +79,134 @@ body {
 
 
 
+/*  */
+
+
+
+.container {
+  background-color: #1e293b; /* greyBlue */
+  height: 100%;
+  width: 100%;
+  border-radius: 0.5rem;
+  padding-top: 3rem;
+  padding-bottom: 1.5rem;
+  overflow-y: auto;
+  
+}
+
+.content {
+  padding: 0 2rem;
+  
+}
+
+.title {
+  text-decoration: underline;
+  font-size: 1.875rem;
+  font-weight: 600;
+}
+
+.difficulty-container {
+  display: flex;
+  padding-top: 1rem;
+  align-items: center;
+}
+
+.difficulty {
+  background-color: #0c121c; /* Adjust as necessary */
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+}
+
+.like-icon,
+.dislike-icon {
+  font-size: 1.5rem;
+  padding-left: 1rem;
+  cursor: pointer;
+}
+
+.like-icon {
+  color: #008000; /* green */
+}
+
+.dislike-icon {
+  color: #ff0000; /* red */
+}
+
+.problem-statement {
+  padding-top: 2.5rem;
+}
+
+.subtitle {
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.description {
+  padding-top: 1rem;
+}
+
+.sample-test-cases {
+  padding-top: 2rem;
+}
+
+.test-case-title {
+  font-size: 1.5rem;
+}
+
+.example-title {
+  padding-top: 1.25rem;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.example {
+  background-color: #0c121c; /* Adjust as necessary */
+  width: 100%;
+  padding: 0 1rem;
+  border-radius: 0.375rem;
+  margin-top: 0.75rem;
+  padding: 0.25rem 1rem;
+}
+
+.code-block {
+  display: block;
+  padding: 0.25rem 0;
+}
+
+.constraints {
+  padding-top: 2.5rem;
+}
+
+.constraints-title {
+  font-size: 1.5rem;
+}
+
+.constraints-list {
+  padding: 0.25rem 2.5rem;
+  list-style-type: disc;
+}
+
+.constraint-item {
+  padding-top: 0.5rem;
+}
+
+/* CODE PAGE ANIMATION */
+
+#blur {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  backdrop-filter: blur(75px);
+}
+
+.code-gradient {
+  position: absolute;
+  z-index: 1;
+  height: 550px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: linear-gradient(to right,#1e293b,#3A79cb);
+  
+}
+

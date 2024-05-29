@@ -12,7 +12,7 @@ export default function CodeNav() {
     const [small, setSmall] = useState(false);
     return (
       <div
-        className={`max-h-screen h-screen bg-blue sidebar ${
+        className={`max-h-screen h-screen bg-blue sidebar relative z-50 ${
           small ? "small" : "large"
         }`}
       >

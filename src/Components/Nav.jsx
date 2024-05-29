@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { auth } from "../firebase/firebase";
 import { IoLogOutSharp } from "react-icons/io5";
 import { useSignOut } from 'react-firebase-hooks/auth';
@@ -32,7 +32,7 @@ export default function Nav() {
               <li className="text-sm px-4 py-2 mx-5 link-hover rounded-lg cursor-pointer">
                 Instructors
               </li>
-              <Link to="/code">
+              <Link to={`/code/caesar-cipher`}>
                 <li className="text-sm px-4 py-2 mx-5 link-hover rounded-lg cursor-pointer">
                   Code
                 </li>

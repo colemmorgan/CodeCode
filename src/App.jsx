@@ -8,6 +8,10 @@ import SignUp from './Components/SignUp';
 import { RecoilRoot } from 'recoil';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebase/firebase';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css"
+import Problem from './Pages/Problem';
+
 
 
 export default function App() {
@@ -17,12 +21,15 @@ export default function App() {
   return (
     <Router>
       <RecoilRoot>
+        <ToastContainer/>
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/code" element={<Code/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<SignUp/>}/>
+        <Route path="/code/:problemId" element={<Problem/>} />
       </Routes>
+      
       </RecoilRoot>
     </Router>
   )

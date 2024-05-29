@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { PiHandWavingDuotone } from "react-icons/pi";
 import { auth } from "../firebase/firebase";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -31,13 +32,12 @@ export default function SignUp() {
       if(!newUser) return
       navigate("/code")
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message, {position: 'top-center', autoClose: 3000, theme: "dark"})
     }
   };
-
-  useEffect(() => {
-    if(error) alert(error.message)
-  },[error])
+useEffect(() => {
+  if(error) toast.error(error.message, {position: 'top-center', autoClose: 3000, theme: "dark"})
+})
 
   return (
     <>
