@@ -26,8 +26,8 @@ export default function Problem() {
           className="row-span-5"
           dangerouslySetInnerHTML={{ __html: problem.code }}
         ></div>
-        <CodeEditor />
-        <CodeResults />
+        <CodeEditor problem={problem}/>
+        <CodeResults problem={problem}/>
       </div>
     </section>
   );

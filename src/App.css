@@ -207,6 +207,6 @@ body {
   aspect-ratio: 1;
   border-radius: 50%;
   background: linear-gradient(to right,#1e293b,#3A79cb);
+  /* animation: rotate 15s infinite; */
   
 }
-

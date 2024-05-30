@@ -4,35 +4,35 @@ export const CaesarCipher = {
     examples: [
         {
             "id": 1,
-            "original": "HELLO",
-            "encrypted": "KHOOR"
+            input: "HELLO",
+            output: "KHOOR"
           },
           {
             "id": 2,
-            "original": "WORLD",
-            "encrypted": "ZRUOG"
+            input: "WORLD",
+            output: "ZRUOG"
           },
           {
             "id": 3,
-            "original": "CAESAR",
-            "encrypted": "FDHVDU"
+            input: "CAESAR",
+            output: "FDHVDU"
           },
           {
             "id": 4,
-            "original": "SHIFT",
-            "encrypted": "VKLIW"
+            input: "SHIFT",
+            output: "VKLIW"
           },
           {
             "id": 5,
-            "original": "CIPHER",
-            "encrypted": "FLPKHU"
+            input: "CIPHER",
+            output: "FLSKHU"
           }
     ],
 
     code: `
     <div class="container">
       <div class="content">
-        <h3 class="title">Shift Cipher</h3>
+        <h3 class="title">Caesar Cipher</h3>
         <div class="difficulty-container">
           <p class="difficulty">Difficulty: Easy 5-10 Minutes</p>
           <span class="like-icon">
@@ -45,26 +45,24 @@ export const CaesarCipher = {
         <div class="problem-statement">
           <h5 class="subtitle">Problem Statement</h5>
           <p class="description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum,
-            officia aliquam vel sunt, reprehenderit adipisci unde molestias,
-            accusantium doloremque cumque deleniti ipsum incidunt hic assumenda
-            distinctio tenetur maxime corrupti! Laborum.
+            Create a function named CaesarCipher that takes in a string as an argument. The function should return 
+            an encrypted string using a shift of k = 3. This means that an A will become D and Z will become C.
           </p>
         </div>
         <div class="sample-test-cases">
           <h5 class="test-case-title">Sample Test Cases</h5>
           <p class="example-title">Example 1:</p>
           <div class="example">
-            <code class="code-block">Input: [2,3,5]</code>
-            <code class="code-block">Output: True</code>
+            <code class="code-block">Input: "HELLO"</code>
+            <code class="code-block">Output: "KHOOR"</code>
             <code class="code-block">
               Explanation: Each string can be rearranged to match another.
             </code>
           </div>
           <p class="example-title">Example 2:</p>
           <div class="example">
-            <code class="code-block">Input: [2,3,5]</code>
-            <code class="code-block">Output: True</code>
+            <code class="code-block">Input: "CIPHER"</code>
+            <code class="code-block">Output: "FLPKHU"</code>
             <code class="code-block">
               Explanation: Each string can be rearranged to match another.
             </code>
@@ -78,5 +76,12 @@ export const CaesarCipher = {
           </ul>
         </div>
       </div>
-    </div>`
+    </div>`,
+    testCode:`
+    console.log(CaesarCipher("HELLO"))
+    console.log(CaesarCipher("WORLD"))
+    console.log(CaesarCipher("CAESAR"))
+    console.log(CaesarCipher("SHIFT"))
+    console.log(CaesarCipher("CIPHER"))
+    `
 }
