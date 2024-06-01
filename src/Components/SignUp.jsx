@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import Nav from "./Nav";
 import { Link, useNavigate } from "react-router-dom";
 import { PiHandWavingDuotone } from "react-icons/pi";
-import { auth } from "../firebase/firebase";
+import { auth, firestore } from "../firebase/firebase";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { toast, ToastContainer } from "react-toastify";
+import { setDoc, doc } from "firebase/firestore";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -25,14 +26,31 @@ export default function SignUp() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
+      toast.loading("Creating your account", {position:"top-center", toastId:"loadingToast"})
       const newUser = await createUserWithEmailAndPassword(
         inputs.email,
         inputs.password
       );
       if(!newUser) return
+      const userData = {
+        uid: newUser.user.uid,
+        email: newUser.user.email,
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+        completedProblems: [],
+        likedProblems: [],
+        dislikedProblems:[],
+        starredProblems: [],
+      }
+      await setDoc(doc(firestore,"users",newUser.user.uid), userData)
+
+
       navigate("/code")
     } catch (error) {
       toast.error(error.message, {position: 'top-center', autoClose: 3000, theme: "dark"})
+    }
+    finally {
+      toast.dismiss("loadingToast")
     }
   };
 useEffect(() => {

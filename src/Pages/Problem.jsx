@@ -5,6 +5,7 @@ import ProblemTabs from "../Components/ProblemTabs";
 import { CaesarCipher } from "../problems/CeasarCipher";
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { useParams } from "react-router-dom";
+import ProblemDesc from "../Components/ProblemDesc";
 
 export default function Problem() {
   const problems = {
@@ -22,10 +23,7 @@ export default function Problem() {
       <CodeNav />
       <ProblemTabs />
       <div class="grid grid-cols-2 grid-rows-5 gap-2 h-screen w-full p-3">
-        <div
-          className="row-span-5"
-          dangerouslySetInnerHTML={{ __html: problem.code }}
-        ></div>
+        <ProblemDesc problem={problem}/>
         <CodeEditor problem={problem}/>
         <CodeResults problem={problem}/>
       </div>

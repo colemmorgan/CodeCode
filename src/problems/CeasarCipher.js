@@ -1,48 +1,40 @@
 export const CaesarCipher = {
-    id: "caesar-cipher",
-    title: "Caesar Cipher",
-    examples: [
-        {
-            "id": 1,
-            input: "HELLO",
-            output: "KHOOR"
-          },
-          {
-            "id": 2,
-            input: "WORLD",
-            output: "ZRUOG"
-          },
-          {
-            "id": 3,
-            input: "CAESAR",
-            output: "FDHVDU"
-          },
-          {
-            "id": 4,
-            input: "SHIFT",
-            output: "VKLIW"
-          },
-          {
-            "id": 5,
-            input: "CIPHER",
-            output: "FLSKHU"
-          }
-    ],
-
-    code: `
-    <div class="container">
-      <div class="content">
-        <h3 class="title">Caesar Cipher</h3>
-        <div class="difficulty-container">
-          <p class="difficulty">Difficulty: Easy 5-10 Minutes</p>
-          <span class="like-icon">
-            <AiOutlineLike />
-          </span>
-          <span class="dislike-icon">
-            <AiOutlineDislike />
-          </span>
-        </div>
-        <div class="problem-statement">
+  id: "caesar-cipher",
+  title: "Caesar Cipher",
+  examples: [
+    {
+      id: 1,
+      input: "HELLO",
+      output: "KHOOR",
+    },
+    {
+      id: 2,
+      input: "WORLD",
+      output: "ZRUOG",
+    },
+    {
+      id: 3,
+      input: "CAESAR",
+      output: "FDHVDU",
+    },
+    {
+      id: 4,
+      input: "SHIFT",
+      output: "VKLIW",
+    },
+    {
+      id: 5,
+      input: "CIPHER",
+      output: "FLSKHU",
+    },
+  ],
+  header: `<h3 class="title">Caesar Cipher</h3>
+    <div class="difficulty-container">
+      <p class="difficulty">Difficulty: Easy 5-10 Minutes</p>
+  
+    </div>`,
+  body: `  
+      <div class="problem-statement">
           <h5 class="subtitle">Problem Statement</h5>
           <p class="description">
             Create a function named CaesarCipher that takes in a string as an argument. The function should return 
@@ -75,13 +67,12 @@ export const CaesarCipher = {
             <li class="constraint-item">Must use the map function</li>
           </ul>
         </div>
-      </div>
-    </div>`,
-    testCode:`
+   `,
+  testCode: `
     console.log(CaesarCipher("HELLO"))
     console.log(CaesarCipher("WORLD"))
     console.log(CaesarCipher("CAESAR"))
     console.log(CaesarCipher("SHIFT"))
     console.log(CaesarCipher("CIPHER"))
-    `
-}
+    `,
+};

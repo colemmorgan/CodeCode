@@ -41,6 +41,10 @@ body {
   box-shadow: 0 0 12px #10b981;
 }
 
+.gradient-static {
+  background: linear-gradient(to left, #10b981, #1098b9);
+}
+
 /* #10b981, #1098b9 */
 
 
@@ -134,7 +138,7 @@ body {
 }
 
 .problem-statement {
-  padding-top: 2.5rem;
+  padding-top: 2rem;
 }
 
 .subtitle {
