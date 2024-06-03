@@ -7,14 +7,20 @@ import { FaLaptopCode } from "react-icons/fa";
 import { BsArrowsCollapseVertical } from "react-icons/bs";
 import { FaGear } from "react-icons/fa6";
 import { MdSunny } from "react-icons/md";
+import { useRecoilState } from "recoil";
+import { ProblemTabsAtom } from "../atoms/ProblemMenuAtom";
+
 
 export default function CodeNav() {
+  
     const [small, setSmall] = useState(false);
+    const [isTabsOpen, setIsTabsOpen] = useRecoilState(ProblemTabsAtom)
     return (
       <div
         className={`max-h-screen h-screen bg-blue sidebar relative z-50 ${
           small ? "small" : "large"
         }`}
+        style={{backgroundColor: isTabsOpen ? "" : "#1e293b"}}
       >
         <div
           className={`p-4 pt-0 h-full flex flex-col  justify-between transition-all ${
@@ -27,7 +33,7 @@ export default function CodeNav() {
                 {small ? "CodeCode" : "CC"}
               </span>
             </Link>
-            <div className=" p-2.5 bg-darkGreen rounded-lg bs mb-2 cursor-pointer hover:bg-darkGreen flex items-center">
+            <div className=" p-2.5 bg-darkGreen rounded-lg bs mb-2 cursor-pointer hover:bg-darkGreen flex items-center" onClick={() => setIsTabsOpen(!isTabsOpen)}>
               <HiMiniSquares2X2 className="ml-0.5  text-2xl" />
               {small && <span className="pl-4 text-sm">Dashboard</span>}
             </div>

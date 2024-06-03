@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { outputAtom } from '../atoms/OutputAtom.js'
-import { useRecoilState,} from "recoil";
+import { useRecoilState} from "recoil";
 
 export default function CodeResults({problem}) {
 

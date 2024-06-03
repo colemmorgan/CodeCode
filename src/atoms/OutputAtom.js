@@ -1,4 +1,5 @@
 // src/atoms.js
+import { PiConfettiThin } from 'react-icons/pi';
 import { atom, selector } from 'recoil';
 
 export const currentProblemIdAtom = atom({
@@ -15,6 +16,16 @@ export const codeAtom = atom({
   key: 'codeAtom',
   default: '',
 });
+
+export const codeError = atom({
+  key: 'codeErrorAtom',
+  default: false,
+})
+
+export const confettiAtom = atom({
+  key:'confettiAtom',
+  default: false,
+})
 
 export const resetOutputSelector = selector({
   key: 'resetOutputSelector',

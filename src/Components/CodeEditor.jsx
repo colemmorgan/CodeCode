@@ -84,7 +84,7 @@ export default function CodeEditor({problem}) {
         output = output.slice(0, output.length - 1)
         setOutput([problem.id, output])
         localStorage.setItem(`output-${problem.id}`,JSON.stringify(output))
-        checkSolution()
+        console.log(checkSolution())
       }
 
       else if (resultData.stderr) {
@@ -105,6 +105,7 @@ export default function CodeEditor({problem}) {
   const checkSolution = () => {
     try {
       for(let i = 0; i < output.length; i++) {
+        console.log(output[i], problem.examples[i].output)
         if(output[i] === problem.examples[i].output) {
           continue
         }

@@ -62,7 +62,7 @@ function Home() {
         </div>
       </section>
       <section className="bg-blue ">
-        <div className="w-full rounded-[40px] rounded-t-none bg-white pt-28 pb-48 text-blue">
+        <div className="w-full rounded-[40px] rounded-t-none bg-white pt-28 pb-80 text-blue">
           <div className="max-w-[1380px] flex flex-col itemx-center justify-center px-8 mx-auto">
             <div className="pt-24 pb-4 text-center">
               <p className="text-lightBlue font-medium font-sm tracking-[1.4px] pb-4">LEARNING REIMAGINED</p>

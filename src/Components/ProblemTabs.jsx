@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
+import { FiChevronsLeft } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { ProblemTabsAtom } from "../atoms/ProblemMenuAtom";
 
 export default function ProblemTabs() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useRecoilState(ProblemTabsAtom)
 
   const unit1Problems = [
     {
@@ -12,14 +15,31 @@ export default function ProblemTabs() {
     },
   ];
 
+  const unit2Problems = [
+    {
+      id: "string-iteration-1",
+      name: "String Iteration 1"
+    }
+  ]
+
+  const unit3Problems = [
+    {
+      id: "adv-string-iteration",
+      name: "Advanced String Iteration"
+    }
+  ]
+
   return (
     <div
       className={`min-h-screen  overflow-y-auto transition-all relative z-50 ${
-        isOpen ? "min-w-[280px]" : "w-0"
+        isOpen ? "max-w-[280px] w-full" : "max-w-[0px] w-0 opacity-0"
       }`}
       style={{ background: "rgb(25, 34, 49)" }}
     >
-      <p className="px-4 py-4 text-dull border-b border-blue">All Content</p>
+      <div className="flex justify-between items-center px-4 py-3 border-b border-blue">
+      <p className=" text-dull ">All Content</p>
+      <span className="p-2 hover:bg-blue transition-all cursor-pointer rounded-md" onClick={() => setIsOpen(false)}><FiChevronsLeft/></span>
+      </div>
       <div className="py-2 flex text-dull justify-center px-2">
         <button className="text-sm px-3 py-1.5 bg-green bg-opacity-10 rounded-lg mx-1 min-w-[82px]">
           View All
@@ -32,19 +52,21 @@ export default function ProblemTabs() {
         </button>
       </div>
       <ul className="w-full border-b border-blue">
-        <UnitTab title={"JS Algorithms"} problems={unit1Problems}/>
+        <UnitTab title={"JS Algorithms"} problems={unit1Problems} num={1}/>
+        <UnitTab title={"Basic Iteration"} problems={unit2Problems} num={2}/>
+        <UnitTab title={"Advanced Iteration"} problems={unit2Problems} num={3}/>
       </ul>
     </div>
   );
 }
 
-function UnitTab({ title, problems }) {
+function UnitTab({ title, problems, num }) {
   const [isTabOpen, toggleTabOpen] = useState(false)
   return (
     <li className="w-full border-t border-blue text-[13px] cursor-pointer " onClick={() => toggleTabOpen(!isTabOpen)}>
       <div className="flex justify-between items-center py-3.5  px-4 hover:bg-greyBlue">
         <p>
-          <span className="mr-1.5">1.</span>
+          <span className="mr-1.5">{num}.</span>
           {title}
         </p>
         <span className="transition-all" style={{transform: isTabOpen ? "rotate(180deg)" : "rotate(0deg)"}}>
