@@ -23,6 +23,8 @@ export default function Problem() {
   }
 
   const [showConfetti, setShowConfetti] = useRecoilState(confettiAtom)
+  const [solved,setSolved] = useState(false)
+
   return (
     <section className="flex bg-blue">
 
@@ -33,8 +35,8 @@ export default function Problem() {
         gravity={0.3}
         tweenDuration={4000}
         />}
-        <ProblemDesc problem={problem}/>
-        <CodeEditor problem={problem}/>
+        <ProblemDesc problem={problem} _solved={solved}/>
+        <CodeEditor problem={problem} setSolved={setSolved}/>
         <CodeResults problem={problem}/>
       </div>
     </section>

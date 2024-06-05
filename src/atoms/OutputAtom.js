@@ -17,7 +17,7 @@ export const codeAtom = atom({
   default: '',
 });
 
-export const codeError = atom({
+export const codeErrorAtom = atom({
   key: 'codeErrorAtom',
   default: false,
 })

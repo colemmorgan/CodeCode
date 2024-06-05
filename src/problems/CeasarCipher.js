@@ -28,7 +28,7 @@ export const CaesarCipher = {
       output: "FLSKHU",
     },
   ],
-  header: `<h3 class="title">Caesar Cipher</h3>
+  header: `
     <div class="difficulty-container">
       <p class="difficulty">Difficulty: Easy 5-10 Minutes</p>
   

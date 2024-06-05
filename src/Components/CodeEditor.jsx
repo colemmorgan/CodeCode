@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Editor } from "@monaco-editor/react";
-import { currentProblemIdAtom, outputAtom, codeAtom, resetOutputSelector } from '../atoms/OutputAtom.js'
+import {
+  outputAtom,
+  codeErrorAtom,
+  confettiAtom,
+} from "../atoms/OutputAtom.js";
 import { useRecoilState, useSetRecoilState } from "recoil";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { auth, firestore } from "../firebase/firebase.js";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-export default function CodeEditor({problem}) {
+export default function CodeEditor({ problem, setSolved }) {
   const handleEditorWillMount = (monaco) => {
     // Define the custom theme
     monaco.editor.defineTheme("default", {
@@ -39,23 +46,27 @@ export default function CodeEditor({problem}) {
     });
   };
 
+  const [user] = useAuthState(auth);
   const [code, setCode] = useState("");
   const [output, setOutput] = useRecoilState(outputAtom);
+  const [isError, setIsError] = useRecoilState(codeErrorAtom);
+  const [showConfetti, setShowConfetti] = useRecoilState(confettiAtom);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const code = localStorage.getItem(`code-${problem.id}`)
-    setCode(code ? JSON.parse(code) : "")
-    const output = localStorage.getItem(`output-${problem.id}`)
-    setOutput(output ? [problem.id, JSON.parse(output)] : [problem.id, ""])
-  },[problem])
+    const code = localStorage.getItem(`code-${problem.id}`);
+    setCode(code ? JSON.parse(code) : "");
+    const output = localStorage.getItem(`output-${problem.id}`);
+    setOutput(output ? [problem.id, JSON.parse(output)] : [problem.id, ""]);
+  }, [problem]);
 
   const judge0ApiBaseUrl = import.meta.env.VITE_JUDGE0_API;
 
   const handleSubmit = async () => {
     setLoading(true);
     setOutput([problem.id, ""]);
-    const submissionCode = code + problem.testCode
+    setIsError(false);
+    const submissionCode = code + problem.testCode;
 
     const response = await fetch(
       `${judge0ApiBaseUrl}/submissions?base64_encoded=false&wait=true`,
@@ -66,7 +77,7 @@ export default function CodeEditor({problem}) {
         },
         body: JSON.stringify({
           source_code: submissionCode,
-          language_id: 63, 
+          language_id: 63,
         }),
       }
     );
@@ -78,18 +89,23 @@ export default function CodeEditor({problem}) {
         `${judge0ApiBaseUrl}/submissions/${data.token}`
       );
       const resultData = await resultResponse.json();
+      // console.log(resultData.stdout.trim())
 
-      if(resultData.stdout) {
-        let output = resultData.stdout.split('\n')
-        output = output.slice(0, output.length - 1)
-        setOutput([problem.id, output])
-        localStorage.setItem(`output-${problem.id}`,JSON.stringify(output))
-        console.log(checkSolution())
-      }
-
-      else if (resultData.stderr) {
-        setOutput([problem.id,resultData.stderr])
-        localStorage.setItem(`output-${problem.id}`,JSON.stringify([resultData.stderr]))
+      if (resultData.stdout) {
+        let jOutput = resultData.stdout.split("\n");
+        jOutput = jOutput.slice(0, jOutput.length - 1);
+        setOutput([problem.id, jOutput]);
+        localStorage.setItem(`output-${problem.id}`, JSON.stringify(jOutput));
+        if (checkSolution(jOutput)) {
+          handleProblemCompletion();
+        }
+      } else if (resultData.stderr) {
+        setIsError(true);
+        setOutput([problem.id, resultData.stderr]);
+        localStorage.setItem(
+          `output-${problem.id}`,
+          JSON.stringify([resultData.stderr])
+        );
       }
     } else {
       setOutput([problem.id, ""]);
@@ -98,32 +114,35 @@ export default function CodeEditor({problem}) {
   };
 
   const onChange = (value) => {
-    setCode(value)
-    localStorage.setItem(`code-${problem.id}`, JSON.stringify(value))
-  }
+    setCode(value);
+    localStorage.setItem(`code-${problem.id}`, JSON.stringify(value));
+  };
 
-  const checkSolution = () => {
+  const checkSolution = (jOutput) => {
     try {
-      for(let i = 0; i < output.length; i++) {
-        console.log(output[i], problem.examples[i].output)
-        if(output[i] === problem.examples[i].output) {
-          continue
+      for (let i = 0; i < jOutput.length; i++) {
+        if (jOutput[i] === problem.examples[i].output) {
+          continue;
+        } else {
+          return false;
         }
-        else {
-          return false
-        }
-
       }
-      return true
+      return true;
+    } catch (error) {
+      return false;
     }
-    catch(error){
-      return false
-    }
-  }
+  };
 
-  // useEffect(() => {
-  //   console.log(output)
-  // },[output])
+  const handleProblemCompletion = async () => {
+    const userRef = doc(firestore, "users", user.uid);
+    await updateDoc(userRef, { solvedProblems: arrayUnion(problem.id) });
+    setSolved(true);
+    setShowConfetti(true);
+    const timeoutId = setTimeout(() => {
+      setShowConfetti(false);
+    }, 4000);
+    return () => clearTimeout(timeoutId);
+  };
 
   return (
     <div className="bg-greyBlue rounded-lg row-span-3 overflow-y-hidden">
@@ -148,7 +167,10 @@ export default function CodeEditor({problem}) {
         <button className="mr-4 bg-blue border border-gray-600 py-2 px-3 rounded-md text-sm">
           Run Code
         </button>
-        <button className="bg-green rounded-md py-2 px-3 text-sm" onClick={handleSubmit}>
+        <button
+          className="bg-green rounded-md py-2 px-3 text-sm"
+          onClick={handleSubmit}
+        >
           Submit Code
         </button>
       </div>

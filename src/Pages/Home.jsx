@@ -61,7 +61,8 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="bg-blue ">
+      <section className="bg-blue relative">
+        {/* <img src="./test.png" alt="" className="absolute max-w-[900px] -bottom-[370px] left-1/2 -translate-x-1/2 rounded-md"/> */}
         <div className="w-full rounded-[40px] rounded-t-none bg-white pt-28 pb-80 text-blue">
           <div className="max-w-[1380px] flex flex-col itemx-center justify-center px-8 mx-auto">
             <div className="pt-24 pb-4 text-center">
