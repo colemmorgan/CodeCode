@@ -183,7 +183,7 @@ export default function ProblemDesc({ problem, _solved }) {
   };
 
   return (
-    <div className="row-span-5 container relative">
+    <div className="container relative overflow-y-scroll custom-scrollbar">
       {currentProblem && (
         <div className="absolute right-2 top-5 flex text-lg">
           <div className="flex items-center text-dull mr-3">

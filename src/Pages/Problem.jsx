@@ -7,8 +7,9 @@ import { useRecoilState } from "recoil";
 import { confettiAtom } from "../atoms/OutputAtom";
 import { useParams } from "react-router-dom";
 import ProblemDesc from "../Components/ProblemDesc";
-import Confetti from 'react-confetti'
+import Confetti from "react-confetti";
 import { useState } from "react";
+import Split from "react-split";
 
 export default function Problem() {
   const problems = {
@@ -22,23 +23,49 @@ export default function Problem() {
     return <div>Problem not found!</div>;
   }
 
-  const [showConfetti, setShowConfetti] = useRecoilState(confettiAtom)
-  const [solved,setSolved] = useState(false)
+  const [showConfetti, setShowConfetti] = useRecoilState(confettiAtom);
+  const [solved, setSolved] = useState(false);
 
   return (
-    <section className="flex bg-blue">
-
+    <section className="flex bg-blue overflow-hidden max-h-screen">
       <CodeNav />
       <ProblemTabs />
-      <div class="grid grid-cols-2 grid-rows-5 gap-2 h-screen w-full p-3">
-        {showConfetti && <Confetti
-        gravity={0.3}
-        tweenDuration={4000}
-        />}
-        <ProblemDesc problem={problem} _solved={solved}/>
-        <CodeEditor problem={problem} setSolved={setSolved}/>
-        <CodeResults problem={problem}/>
-      </div>
+      <HorizontalSplit>
+        {showConfetti && <Confetti gravity={0.3} tweenDuration={4000} />}
+        <ProblemDesc problem={problem} _solved={solved} />
+
+        <VerticalSplit>
+          <CodeEditor problem={problem} setSolved={setSolved} />
+          <CodeResults problem={problem} />
+        </VerticalSplit>
+      </HorizontalSplit>
     </section>
   );
+}
+
+function VerticalSplit({ children }) {
+  return (
+    <Split
+      sizes={[60, 40]}
+      minSize={0}
+      direction="vertical"
+      cursor="col-resize"
+      className="overflow-y-hidden"
+    >
+      {children}
+    </Split>
+  );
+}
+
+function HorizontalSplit({ children }) {
+ return (
+  <Split
+  sizes={[50, 50]}
+  direction="horizontal"
+  className="flex p-2.5 overflow-x-hidden "
+  minSize={0} 
+>
+  {children}
+</Split>
+ )
 }

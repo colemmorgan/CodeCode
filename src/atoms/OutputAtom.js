@@ -12,6 +12,11 @@ export const outputAtom = atom({
   default: [],
 });
 
+export const runCodeOutputAtom = atom({
+  key: 'runCodeOutput',
+  default: [],
+});
+
 export const codeAtom = atom({
   key: 'codeAtom',
   default: '',

@@ -4,6 +4,7 @@ import {
   outputAtom,
   codeErrorAtom,
   confettiAtom,
+  runCodeOutputAtom
 } from "../atoms/OutputAtom.js";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
@@ -48,6 +49,7 @@ export default function CodeEditor({ problem, setSolved }) {
 
   const [user] = useAuthState(auth);
   const [code, setCode] = useState("");
+  const [testOutput, setTestOutput] = useRecoilState(runCodeOutputAtom)
   const [output, setOutput] = useRecoilState(outputAtom);
   const [isError, setIsError] = useRecoilState(codeErrorAtom);
   const [showConfetti, setShowConfetti] = useRecoilState(confettiAtom);
@@ -61,6 +63,39 @@ export default function CodeEditor({ problem, setSolved }) {
   }, [problem]);
 
   const judge0ApiBaseUrl = import.meta.env.VITE_JUDGE0_API;
+
+  const handleRunCode = async () => {
+    
+    const response = await fetch(
+      `${judge0ApiBaseUrl}/submissions?base64_encoded=false&wait=true`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          source_code: code,
+          language_id: 63,
+        }),
+      }
+    );
+    const data = await response.json();
+
+    if (data.token) {
+      const resultResponse = await fetch(
+        `${judge0ApiBaseUrl}/submissions/${data.token}`
+      );
+      const resultData = await resultResponse.json();
+      console.log(resultData)
+      if (resultData.stdout) {
+        setTestOutput([problem.id, resultData.stdout]);
+      }
+      else if (resultData.error) {
+        setTestOutput([problem.id, resultData.error]);
+      }
+      
+    }
+  }
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -133,6 +168,11 @@ export default function CodeEditor({ problem, setSolved }) {
     }
   };
 
+
+  useEffect(() => {
+    console.log(testOutput)
+  },[testOutput])
+
   const handleProblemCompletion = async () => {
     const userRef = doc(firestore, "users", user.uid);
     await updateDoc(userRef, { solvedProblems: arrayUnion(problem.id) });
@@ -145,12 +185,12 @@ export default function CodeEditor({ problem, setSolved }) {
   };
 
   return (
-    <div className="bg-greyBlue rounded-lg row-span-3 overflow-y-hidden">
+    <div className="bg-greyBlue rounded-lg  overflow-y-hidden">
       <div
-        className="h-10 mb-4 flex  items-center px-12 text-xs text-dull"
+        className="h-10 mb-4 flex  items-center  text-xs"
         style={{ background: "rgb(25, 34, 49)" }}
       >
-        ShiftCipher.js
+        <p className="h-full flex items-center px-8 bg-greyBlue">ShiftCipher.js</p>
       </div>
       <Editor
         height={"80%"}
@@ -164,7 +204,7 @@ export default function CodeEditor({ problem, setSolved }) {
         className="h-14 w-full flex items-center justify-end px-4"
         style={{ background: "rgb(25, 34, 49)" }}
       >
-        <button className="mr-4 bg-blue border border-gray-600 py-2 px-3 rounded-md text-sm">
+        <button className="mr-4 bg-blue border border-gray-600 py-2 px-3 rounded-md text-sm" onClick={handleRunCode}>
           Run Code
         </button>
         <button

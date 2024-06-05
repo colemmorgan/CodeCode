@@ -214,3 +214,50 @@ body {
   /* animation: rotate 15s infinite; */
   
 }
+
+
+/* REACT SPLIT */
+
+.gutter {
+	/* background-color: rgb(26, 26, 26); */
+	background-repeat: no-repeat;
+	background-position: 50%;
+}
+.gutter:hover {
+	background-color: #3A79cb;
+}
+
+.gutter.gutter-horizontal {
+	background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==");
+	cursor: col-resize;
+}
+
+.gutter.gutter-vertical {
+	background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=");
+	cursor: row-resize;
+}
+
+
+/* PROBLEM DESC SCROLLBAR */
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  .custom-scrollbar {
+    scrollbar-width: auto;
+    scrollbar-color: #0c121c #1e293b;
+  }
+
+  /* Chrome, Edge, and Safari */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #1e293b;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #0c121c;
+    border-radius: 10px;
+    border: 3px solid #ffffff;
+  }
