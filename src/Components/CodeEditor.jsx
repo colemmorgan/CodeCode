@@ -4,7 +4,7 @@ import {
   outputAtom,
   codeErrorAtom,
   confettiAtom,
-  runCodeOutputAtom
+  runCodeOutputAtom,
 } from "../atoms/OutputAtom.js";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
@@ -49,7 +49,7 @@ export default function CodeEditor({ problem, setSolved }) {
 
   const [user] = useAuthState(auth);
   const [code, setCode] = useState("");
-  const [testOutput, setTestOutput] = useRecoilState(runCodeOutputAtom)
+  const [testOutput, setTestOutput] = useRecoilState(runCodeOutputAtom);
   const [output, setOutput] = useRecoilState(outputAtom);
   const [isError, setIsError] = useRecoilState(codeErrorAtom);
   const [showConfetti, setShowConfetti] = useRecoilState(confettiAtom);
@@ -58,14 +58,13 @@ export default function CodeEditor({ problem, setSolved }) {
   useEffect(() => {
     const code = localStorage.getItem(`code-${problem.id}`);
     setCode(code ? JSON.parse(code) : "");
-    const output = localStorage.getItem(`output-${problem.id}`);
-    setOutput(output ? [problem.id, JSON.parse(output)] : [problem.id, ""]);
+    const localOutput = localStorage.getItem(`output-${problem.id}`);
+    setOutput(output ? JSON.parse(localOutput) : {id:problem.id, outputs:[]});
   }, [problem]);
 
   const judge0ApiBaseUrl = import.meta.env.VITE_JUDGE0_API;
 
   const handleRunCode = async () => {
-    
     const response = await fetch(
       `${judge0ApiBaseUrl}/submissions?base64_encoded=false&wait=true`,
       {
@@ -86,65 +85,73 @@ export default function CodeEditor({ problem, setSolved }) {
         `${judge0ApiBaseUrl}/submissions/${data.token}`
       );
       const resultData = await resultResponse.json();
-      console.log(resultData)
       if (resultData.stdout) {
         setTestOutput([problem.id, resultData.stdout]);
-      }
-      else if (resultData.error) {
+      } else if (resultData.error) {
         setTestOutput([problem.id, resultData.error]);
       }
-      
     }
-  }
+  };
 
   const handleSubmit = async () => {
     setLoading(true);
     setOutput([problem.id, ""]);
     setIsError(false);
-    const submissionCode = code + problem.testCode;
 
-    const response = await fetch(
-      `${judge0ApiBaseUrl}/submissions?base64_encoded=false&wait=true`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          source_code: submissionCode,
-          language_id: 63,
-        }),
+    let outputs = [];
+    for (let test of problem.testCode) {
+      let submissionCode = code + test;
+
+      try {
+        const response = await fetch(
+          `${judge0ApiBaseUrl}/submissions?base64_encoded=false&wait=true`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              source_code: submissionCode,
+              language_id: 63,
+            }),
+          }
+        );
+
+        const data = await response.json();
+
+        if (data.token) {
+          const resultResponse = await fetch(
+            `${judge0ApiBaseUrl}/submissions/${data.token}`
+          );
+          const resultData = await resultResponse.json();
+
+          if (resultData.stdout) {
+            outputs.push(resultData.stdout.trim());
+          } else if (resultData.stderr) {
+        
+            setIsError(true);
+            outputs.push("Error");
+          }
+          else {
+            outputs.push("Error");
+          }
+        }
+      } catch (error) {
+        setIsError(true);
+        outputs.push("Error");
       }
+    }
+
+    setOutput({ id: problem.id, outputs: outputs });
+    localStorage.setItem(
+      `output-${problem.id}`,
+      JSON.stringify({ id: problem.id, outputs: outputs })
     );
 
-    const data = await response.json();
-
-    if (data.token) {
-      const resultResponse = await fetch(
-        `${judge0ApiBaseUrl}/submissions/${data.token}`
-      );
-      const resultData = await resultResponse.json();
-      // console.log(resultData.stdout.trim())
-
-      if (resultData.stdout) {
-        let jOutput = resultData.stdout.split("\n");
-        jOutput = jOutput.slice(0, jOutput.length - 1);
-        setOutput([problem.id, jOutput]);
-        localStorage.setItem(`output-${problem.id}`, JSON.stringify(jOutput));
-        if (checkSolution(jOutput)) {
-          handleProblemCompletion();
-        }
-      } else if (resultData.stderr) {
-        setIsError(true);
-        setOutput([problem.id, resultData.stderr]);
-        localStorage.setItem(
-          `output-${problem.id}`,
-          JSON.stringify([resultData.stderr])
-        );
-      }
-    } else {
-      setOutput([problem.id, ""]);
+    if (checkSolution(outputs)) {
+      handleProblemCompletion();
     }
+
     setLoading(false);
   };
 
@@ -168,11 +175,6 @@ export default function CodeEditor({ problem, setSolved }) {
     }
   };
 
-
-  useEffect(() => {
-    console.log(testOutput)
-  },[testOutput])
-
   const handleProblemCompletion = async () => {
     const userRef = doc(firestore, "users", user.uid);
     await updateDoc(userRef, { solvedProblems: arrayUnion(problem.id) });
@@ -184,13 +186,20 @@ export default function CodeEditor({ problem, setSolved }) {
     return () => clearTimeout(timeoutId);
   };
 
+
+  useEffect(() => {
+    console.log(output)
+  }, [output])
+  
   return (
     <div className="bg-greyBlue rounded-lg  overflow-y-hidden">
       <div
         className="h-10 mb-4 flex  items-center  text-xs"
         style={{ background: "rgb(25, 34, 49)" }}
       >
-        <p className="h-full flex items-center px-8 bg-greyBlue">ShiftCipher.js</p>
+        <p className="h-full flex items-center px-8 bg-greyBlue">
+          ShiftCipher.js
+        </p>
       </div>
       <Editor
         height={"80%"}
@@ -204,7 +213,10 @@ export default function CodeEditor({ problem, setSolved }) {
         className="h-14 w-full flex items-center justify-end px-4"
         style={{ background: "rgb(25, 34, 49)" }}
       >
-        <button className="mr-4 bg-blue border border-gray-600 py-2 px-3 rounded-md text-sm" onClick={handleRunCode}>
+        <button
+          className="mr-4 bg-blue border border-gray-600 py-2 px-3 rounded-md text-sm"
+          onClick={handleRunCode}
+        >
           Run Code
         </button>
         <button

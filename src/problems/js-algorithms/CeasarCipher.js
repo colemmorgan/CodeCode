@@ -68,11 +68,13 @@ export const CaesarCipher = {
           </ul>
         </div>
    `,
-  testCode: `
-    console.log(CaesarCipher("HELLO"))
-    console.log(CaesarCipher("WORLD"))
-    console.log(CaesarCipher("CAESAR"))
-    console.log(CaesarCipher("SHIFT"))
-    console.log(CaesarCipher("CIPHER"))
-    `,
+  testCode: [
+    `console.log(CaesarCipher("HELLO"))`,
+    `console.log(CaesarCipher("WORLD"))`,
+    `console.log(CaesarCipher("CAESAR"))`,
+    `console.log(CaesarCipher("SHIFT"))`,
+    `console.log(CaesarCipher("CIPHER"))`
+  ]
+    
+    ,
 };

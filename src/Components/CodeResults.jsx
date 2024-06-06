@@ -41,6 +41,8 @@ export default function CodeResults({ problem }) {
     });
   };
 
+  
+
   return (
     <div className="bg-greyBlue rounded-lg overflow-hidden">
       <div
@@ -94,7 +96,7 @@ export default function CodeResults({ problem }) {
               example={example}
               key={example.id}
               index={index}
-              output={output[1]}
+              output={output?.outputs}
               isError={isError}
             />
           ))}
@@ -137,9 +139,6 @@ function ResultRow({ example, index, output, isError }) {
       setTestResult("Error");
     }
   });
-  useEffect(() => {
-    console.log(testResult);
-  }, [testResult]);
   return (
     <>
       <div

@@ -9,7 +9,7 @@ export const currentProblemIdAtom = atom({
 
 export const outputAtom = atom({
   key: 'outputAtom',
-  default: [],
+  default: {id:null,outputs:[]},
 });
 
 export const runCodeOutputAtom = atom({

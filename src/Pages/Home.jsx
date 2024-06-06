@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import Nav from "../Components/Nav";
-
-
+import { FaChevronDown } from "react-icons/fa";
 
 function Home() {
-
-
   return (
     <>
-      <Nav/>
+      <Nav />
       <section className="bg-blue relative py-28 z-10">
         <img
           src="./HeroGradient.png"
@@ -63,48 +60,91 @@ function Home() {
       </section>
       <section className="bg-blue relative">
         {/* <img src="./test.png" alt="" className="absolute max-w-[900px] -bottom-[370px] left-1/2 -translate-x-1/2 rounded-md"/> */}
-        <div className="w-full rounded-[40px] rounded-t-none bg-white pt-28 pb-80 text-blue">
+        <div className="w-full rounded-[40px] rounded-t-none bg-white pt-28 pb-40 text-blue">
           <div className="max-w-[1380px] flex flex-col itemx-center justify-center px-8 mx-auto">
             <div className="pt-24 pb-4 text-center">
-              <p className="text-lightBlue font-medium font-sm tracking-[1.4px] pb-4">LEARNING REIMAGINED</p>
-              <h3 className="pb-6 max-w-xl mx-auto text-4xl font-semibold"> We manage your course content, so you can focus on learning.</h3>
-              <p className="text-gray-500">We provide a platform for students to learn computing concepts.</p>
+              <p className="text-lightBlue font-medium font-sm tracking-[1.4px] pb-4">
+                LEARNING REIMAGINED
+              </p>
+              <h3 className="pb-6 max-w-xl mx-auto text-4xl font-semibold">
+                {" "}
+                We manage your course content, so you can focus on learning.
+              </h3>
+              <p className="text-gray-500">
+                We provide a platform for students to learn computing concepts.
+              </p>
             </div>
             <div className="flex flex-wrap items-center  justify-center w-full">
-              <Card title={"Learn"}/>
-              <Card title={"Code"}/>
-              <Card title={"Practice"}/>
+              <Card title={"Learn"} />
+              <Card title={"Code"} />
+              <Card title={"Practice"} />
             </div>
           </div>
         </div>
       </section>
-      <section className="fu bg-blue">ff</section>
+      <section className=" bg-blue">
+        <div className="max-w-[1000px] mx-auto flex flex-col justify-center items-center px-4 py-24">
+          <h3 className="font-semibold text-4xl">Table of Contents</h3>
+          <ul className="flex flex-col mt-16 w-full">
+            <TocTab />
+            <TocTab />
+            <TocTab />
+            <TocTab />
+            <TocTab />
+            <TocTab />
+            <TocTab />
+          </ul>
+        </div>
+      </section>
+      <section className="bg-white min-h-96"></section>
     </>
   );
 }
 
 export default Home;
 
-function Card({title, desc}) {
+function TocTab() {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-   
-    <div className="flex flex-col items-start max-w-96 w-full mx-4 mt-8 ">
-      <div className="px-4 pt-8 temp-b rounded-lg overflow-hidden relative h-52 group w-full cursor-pointer  hover:bg-green transition-all">
-      <div className="max-w-60 mx-auto shadow-md absolute w-full bottom-[-20px] left-1/2 -translate-x-1/2 group-hover:bottom-0 transition-all">
-        <div className="w-full h-6 rounded-t-lg bg-gray-800 flex justify-start items-center space-x-1.5 px-3 ">
-          <span className="w-2 h-2 rounded-full bg-red-400"></span>
-          <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
-          <span className="w-2 h-2 rounded-full bg-green"></span>
-        </div>
-        <div className=" cardbg border-t-0 w-full h-36 pt-4 px-4">
-          <div className="h-full w-full card-inner rounded-md shadow-md rounded-b-none"></div>
-        </div>
+    <li
+      className={`w-full bg-greyBlue  my-1 rounded-md  transition-all ${
+        isOpen ? "min-h-56" : "min-h-[72px]"
+      }`}
+    >
+      <div className="flex py-4 px-6 items-center justify-between">
+        <p className="font-semibold p-2">Unit 1: Basic Iteration</p>
+        <span
+          className="text-lg p-2 cursor-pointer transition-all"
+          onClick={() => setIsOpen(!isOpen)}
+          style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}
+        >
+          <FaChevronDown />
+        </span>
       </div>
-    </div>
-    <h3 className="pt-4 text-xl font-semibold">{title}</h3>
-    <p className="pt-2 text-gray-500">Learn the fundamentals of computer science with our interactive lessons and practice exercises.</p>
-    </div>
-
+    </li>
   );
 }
 
+function Card({ title, desc }) {
+  return (
+    <div className="flex flex-col items-start max-w-96 w-full mx-4 mt-8 ">
+      <div className="px-4 pt-8 temp-b rounded-lg overflow-hidden relative h-52 group w-full cursor-pointer  hover:bg-green transition-all">
+        <div className="max-w-60 mx-auto shadow-md absolute w-full bottom-[-20px] left-1/2 -translate-x-1/2 group-hover:bottom-0 transition-all">
+          <div className="w-full h-6 rounded-t-lg bg-gray-800 flex justify-start items-center space-x-1.5 px-3 ">
+            <span className="w-2 h-2 rounded-full bg-red-400"></span>
+            <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
+            <span className="w-2 h-2 rounded-full bg-green"></span>
+          </div>
+          <div className=" cardbg border-t-0 w-full h-36 pt-4 px-4">
+            <div className="h-full w-full card-inner rounded-md shadow-md rounded-b-none"></div>
+          </div>
+        </div>
+      </div>
+      <h3 className="pt-4 text-xl font-semibold">{title}</h3>
+      <p className="pt-2 text-gray-500">
+        Learn the fundamentals of computer science with our interactive lessons
+        and practice exercises.
+      </p>
+    </div>
+  );
+}

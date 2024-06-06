@@ -2,7 +2,10 @@ import CodeEditor from "../Components/CodeEditor";
 import CodeResults from "../Components/CodeResults";
 import CodeNav from "../Components/CodeNav";
 import ProblemTabs from "../Components/ProblemTabs";
-import { CaesarCipher } from "../problems/CeasarCipher";
+import { CaesarCipher } from "../problems/js-algorithms/CeasarCipher";
+import {StringIteration} from "../problems/basic-iteration/StringIteration"
+import {ArrayIteration} from "../problems/basic-iteration/ArrayIteration"
+import {ObjectIteration} from "../problems/basic-iteration/ObjectIteration"
 import { useRecoilState } from "recoil";
 import { confettiAtom } from "../atoms/OutputAtom";
 import { useParams } from "react-router-dom";
@@ -11,10 +14,13 @@ import Confetti from "react-confetti";
 import { useState } from "react";
 import Split from "react-split";
 
+
 export default function Problem() {
   const problems = {
     "caesar-cipher": CaesarCipher,
-    // Add other problems here
+    "basic-string-iteration": StringIteration,
+    "basic-array-iteration": ArrayIteration,
+    "basic-object-iteration":ObjectIteration,
   };
   const { problemId } = useParams();
   const problem = problems[problemId];
