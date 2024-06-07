@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import Nav from "../Components/Nav";
-import { FaChevronDown } from "react-icons/fa";
+import { FaChevronDown, FaGithub } from "react-icons/fa";
+import { FcAbout } from "react-icons/fc";
+import Footer from "../Components/Footer";
 
 function Home() {
   return (
@@ -82,28 +84,66 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className=" bg-blue">
-        <div className="max-w-[1000px] mx-auto flex flex-col justify-center items-center px-4 py-24">
+      <section className="bg-blue">
+        <div className="max-w-[1000px] mx-auto flex flex-col justify-center items-center px-4 pt-24 pb-40">
           <h3 className="font-semibold text-4xl">Table of Contents</h3>
           <ul className="flex flex-col mt-16 w-full">
-            <TocTab />
-            <TocTab />
-            <TocTab />
-            <TocTab />
-            <TocTab />
-            <TocTab />
-            <TocTab />
+            <TocTab title={"Unit 1: Basic Iteration"} />
+            <TocTab title={"Unit 2: String Manipulation"} />
+            <TocTab title={"Unit 3: No Mutation!"} />
+            <TocTab title={"Unit 4: Map/Filter/Reduce"} />
+            <TocTab title={"Unit 5: Advanced Iteration"} />
+            <TocTab title={"Unit 6: JS Algorithms"} />
+            <TocTab title={"Unit 1: Basic Iteration"} />
           </ul>
         </div>
       </section>
-      <section className="bg-white min-h-96"></section>
+      <section className="bg-white py-48 rounded-[40px] rounded-t-none">
+        <div className="max-w-[1280px] mx-auto px-8 flex text-black">
+          <div className="flex flex-col  w-1/2">
+            <span className="text-7xl">
+              <FcAbout />
+            </span>
+            <p className="text-3xl font-semibold mt-4">
+              Interested in beginning <br /> CodeCode today?
+            </p>
+            <p className="mt-4">
+              CodeCode is always free. Sign up today to practice your javascript
+              skills and become a React developer.
+            </p>
+            <p className="flex items-center mt-4">
+              Sign Up{" "}
+              <span className="ml-2">
+                <FaArrowRightLong />
+              </span>
+            </p>
+          </div>
+          <div className="flex flex-col w-1/2 pl-20">
+            <figure className="relative h-20">
+              <div className="h-16 w-16 rounded-full overflow-hidden absolute bg-green z-50"/>
+              <div className="h-16 w-16 rounded-full overflow-hidden absolute left-10 bg-lightBlue z-40"/>
+              <div className="h-16 w-16 rounded-full overflow-hidden absolute left-20 bg-purple-500 z-30"/>
+              <div className="h-16 w-16 rounded-full overflow-hidden absolute left-[120px] bg-yellow-400 z-20"/>
+            </figure>
+            <p className="text-3xl font-semibold">Built by developers, for <br />developers.</p>
+            <p className="mt-4">CodeCode is designed for students and aspiring developers who wish to continue their pursuit of knowledge and excellence</p>
+            <p className="flex items-center mt-4 cursor-not-allowed">
+              Meet Our Team
+              <span className="ml-2">
+                <FaArrowRightLong />
+              </span>
+            </p>
+          </div>
+        </div>
+      </section>
+      <Footer />
     </>
   );
 }
 
 export default Home;
 
-function TocTab() {
+function TocTab({ title }) {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <li
@@ -112,7 +152,7 @@ function TocTab() {
       }`}
     >
       <div className="flex py-4 px-6 items-center justify-between">
-        <p className="font-semibold p-2">Unit 1: Basic Iteration</p>
+        <p className="font-semibold p-2">{title}</p>
         <span
           className="text-lg p-2 cursor-pointer transition-all"
           onClick={() => setIsOpen(!isOpen)}

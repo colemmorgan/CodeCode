@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import useGetUserData from "../hooks/useGetUserData";
+import { auth } from "../firebase/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function Account() {
+  const [user] = useAuthState(auth);
+
+  useEffect(() => {
+    console.log(user)
+  },[user])
+
+  const { liked, disliked, solved, setData, starred } =
+    useGetUserData();
   return (
     <>
       <nav className="flex justify-center items-center h-16 bg-greyBlue">
@@ -33,7 +44,7 @@ export default function Account() {
         <div className="max-w-[1100px] mx-auto px-6 py-12">
           <h2 className="text-3xl font-semibold">Coding Stats</h2>
           <ul className="flex flex-wrap pt-2">
-            <CodingStat stat={0} desc={"Problems Solved"}/>
+            <CodingStat stat={user ? solved.length : "0"} desc={"Problems Solved"}/>
             <CodingStat stat={"5/31/2024"} desc={"Account Created"}/>
             <CodingStat stat={"6/30/2024"} desc={"Account Created"}/>
           </ul>

@@ -32,11 +32,11 @@ export default function Nav() {
               Students
             </li>
             <li className="text-sm px-4 py-2 mx-5 link-hover rounded-lg cursor-pointer">
-              Instructors
+              Content
             </li>
-            <Link to={`/code/caesar-cipher`}>
+            <Link to={`/account`}>
               <li className="text-sm px-4 py-2 mx-5 link-hover rounded-lg cursor-pointer">
-                Code
+                Account
               </li>
             </Link>
           </ul>

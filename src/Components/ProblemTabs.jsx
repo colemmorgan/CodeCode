@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { FiChevronsLeft } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -6,12 +6,16 @@ import { useRecoilState } from "recoil";
 import { ProblemTabsAtom } from "../atoms/ProblemMenuAtom";
 import { auth } from "../firebase/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import useGetUserData from "../hooks/useGetUserData";
+
 
 export default function ProblemTabs() {
   const [isOpen, setIsOpen] = useRecoilState(ProblemTabsAtom);
   const [user] = useAuthState(auth);
-  // const { liked, disliked, solved, setData, starred } =
-  //   useGetUsersDataOnProblem(problem.id);
+  const { liked, disliked, solved, setData, starred } =
+    useGetUserData();
+
+  
 
   const unit1Problems = [
     {
@@ -42,6 +46,7 @@ export default function ProblemTabs() {
     },
   ];
 
+
   return (
     <div
       className={`min-h-screen  overflow-y-auto transition-all relative z-50 ${
@@ -70,19 +75,20 @@ export default function ProblemTabs() {
         </button>
       </div>
       <ul className="w-full border-b border-blue">
-        <UnitTab title={"JS Algorithms"} problems={unit1Problems} num={1} />
-        <UnitTab title={"Basic Iteration"} problems={unit2Problems} num={2} />
+        <UnitTab title={"JS Algorithms"} problems={unit1Problems} num={1} solved={solved}/>
+        <UnitTab title={"Basic Iteration"} problems={unit2Problems} num={2} solved={solved}/>
         <UnitTab
           title={"Advanced Iteration"}
           problems={unit2Problems}
           num={3}
+          solved={solved}
         />
       </ul>
     </div>
   );
 }
 
-function UnitTab({ title, problems, num }) {
+function UnitTab({ title, problems, num,solved }) {
   const [isTabOpen, toggleTabOpen] = useState(false);
   return (
     <li
@@ -107,6 +113,7 @@ function UnitTab({ title, problems, num }) {
             problem={problem}
             index={index}
             key={problem.id}
+            solved={solved}
           />
         ))}
       </div>
@@ -114,17 +121,18 @@ function UnitTab({ title, problems, num }) {
   );
 }
 
-function ProblemTab({ problem, index }) {
+function ProblemTab({ problem, index, solved }) {
   return (
-
       <Link to={`/code/${problem.id}`}>
         <div className="flex justify-between items-center py-2.5 pl-8 pr-4 hover:bg-greyBlue">
           <p>
             1.{index + 1} {problem.name}
           </p>
-          <span className="h-5 w-5 rounded-full border border-lightBlue"></span>
+          <span className={`h-5 w-5 rounded-full border border-lightBlue ${solved.includes(problem.id) ? "bg-green border-none" : ""}`}></span>
         </div>
       </Link>
 
   );
 }
+
+
