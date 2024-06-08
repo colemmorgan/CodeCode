@@ -8,11 +8,13 @@ import {ArrayIteration} from "../problems/basic-iteration/ArrayIteration"
 import {ObjectIteration} from "../problems/basic-iteration/ObjectIteration"
 import { useRecoilState } from "recoil";
 import { confettiAtom } from "../atoms/OutputAtom";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ProblemDesc from "../Components/ProblemDesc";
 import Confetti from "react-confetti";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Split from "react-split";
+import { auth } from "../firebase/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 
 export default function Problem() {
@@ -28,6 +30,15 @@ export default function Problem() {
   if (!problem) {
     return <div>Problem not found!</div>;
   }
+  
+  const [user, loading, error] = useAuthState(auth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate("/login");
+    }
+  }, [loading, user, navigate]);
 
   const [showConfetti, setShowConfetti] = useRecoilState(confettiAtom);
   const [solved, setSolved] = useState(false);

@@ -4,8 +4,12 @@ import Nav from "../Components/Nav";
 import { FaChevronDown, FaGithub } from "react-icons/fa";
 import { FcAbout } from "react-icons/fc";
 import Footer from "../Components/Footer";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase/firebase";
+import { Link } from "react-router-dom";
 
 function Home() {
+  const [user] = useAuthState(auth);
   return (
     <>
       <Nav />
@@ -44,11 +48,13 @@ function Home() {
             experiential life-long learning for computing learners.
           </p>
           <div className="mt-8 relative z-40">
+            <Link to={user ? "/code" : "/login"}>
             <button className="rounded-lg  p-[2px] gradient-b group cursor-pointer">
               <p className="py-2 px-4 bg-greyBlue rounded-md text-sm group-hover:bg-blue">
                 Start Coding
               </p>
             </button>
+            </Link>
             <button className="ml-8 text-md fle cursor-pointer">
               <p>
                 Learn More{" "}

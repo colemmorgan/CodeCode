@@ -128,7 +128,7 @@ function ProblemTab({ problem, index, solved }) {
           <p>
             1.{index + 1} {problem.name}
           </p>
-          <span className={`h-5 w-5 rounded-full border border-lightBlue ${solved.includes(problem.id) ? "bg-green border-none" : ""}`}></span>
+          <span className={`h-4 w-4 rounded-full border border-lightBlue ${solved.includes(problem.id) ? "bg-green" : ""}`}></span>
         </div>
       </Link>
 

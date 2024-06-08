@@ -9,14 +9,16 @@ import {
 import { auth, firestore } from "../firebase/firebase";
 import React, { useEffect, useState } from "react";
 import { AiFillLike, AiFillDislike } from "react-icons/ai";
-import { FaStar, FaCheckCircle } from "react-icons/fa";
-
+import { FaStar, FaCheckCircle, FaThumbsDown, FaThumbsUp } from "react-icons/fa";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
+import useGetProblem from "../hooks/useGetProblem";
+import { LuLoader2 } from "react-icons/lu";
+
 
 export default function ProblemDesc({ problem, _solved }) {
   const [user] = useAuthState(auth);
-  const { currentProblem, loading, setCurrentProblem } = useGetCurrentProblem(
+  const { currentProblem, loading, setCurrentProblem } = useGetProblem(
     problem.id
   );
   const { liked, disliked, solved, setData, starred } =
@@ -184,94 +186,65 @@ export default function ProblemDesc({ problem, _solved }) {
 
   return (
     <div className="container relative overflow-y-scroll custom-scrollbar">
-      {currentProblem && (
-        <div className="absolute right-2 top-5 flex text-lg">
-          <div className="flex items-center text-dull mr-3">
-            <span className="mr-1">{currentProblem.likes}</span>
-            <span className="pb-0.5" style={{ color: liked ? "#10b981" : "" }}>
-              <AiFillLike />
-            </span>
-          </div>
-          <div className="flex items-center text-dull mr-4">
-            <span className="mr-1">{currentProblem.dislikes}</span>
-            <span
-              className="pb-0.5"
-              style={{ color: disliked ? "rgb(248,113,113)" : "" }}
-            >
-              <AiFillDislike />
-            </span>
-          </div>
-          <div
-            className="flex items-center text-dull mr-3"
-            style={{ color: starred ? "rgb(253,224,71)" : "" }}
-          >
-            <span className="pb-0.5">
-              <FaStar />
-            </span>
-          </div>
-        </div>
-      )}
       <div className="content ">
         <div className="flex items-center">
-          <h1 className="title">{currentProblem?.title}</h1>
-          {(solved || _solved) && <span className="text-green text-4xl mt-1 ml-4 "><FaCheckCircle/></span>}
+          {!currentProblem ? (
+            <div className="h-[45px] flex items-center justify-center min-w-72 bg-blue rounded-lg">
+              {" "}
+              <span className="animate-spin text-white">
+                <LuLoader2 />
+              </span>
+            </div>
+          ) : (
+            <h1 className="title">{currentProblem.title}</h1>
+          )}
+          {(solved || _solved) && (
+            <span className="text-green text-4xl mt-1 ml-4 ">
+              <FaCheckCircle />
+            </span>
+          )}
+        </div>
+        <div className="">
+          {!currentProblem || updating ? (
+            <div className="h-7 w-40 bg-blue flex items-center justify-center mt-3 rounded-lg"><span className="animate-spin text-lg"><LuLoader2/></span></div>
+          ) : (
+            <div className="flex mt-3 text-lg">
+              <div className="flex items-center text-dull mr-4">
+                <span className="mr-2.5">{currentProblem.likes}</span>
+                <span
+                  className="pb-1 text-xl hover:text-green cursor-pointer"
+                  style={{ color: liked ? "#10b981" : "" }}
+                  onClick={handleLike}
+                >
+                  <FaThumbsUp />
+                </span>
+              </div>
+              <div className="flex items-center text-dull mr-4">
+                <span className="mr-2.5">{currentProblem.dislikes}</span>
+                <span
+                  className="text-xl hover:text-red-400 cursor-pointer"
+                  style={{ color: disliked ? "rgb(248,113,113)" : "" }}
+                  onClick={handleDislike}
+                >
+                  <FaThumbsDown />
+                </span>
+              </div>
+              <div
+                className="flex items-center text-dull mr-3"
+                style={{ color: starred ? "rgb(253,224,71)" : "" }}
+              >
+                <span className="pb-1 text-xl hover:text-yellow-500 cursor-pointer" onClick={handleStar}>
+                  <FaStar />
+                </span>
+              </div>
+            </div>
+          )}
         </div>
         <div dangerouslySetInnerHTML={{ __html: problem.header }} />
-        <div className="flex mt-4 text-gray-700">
-          <div
-            className="bg-green font-semibold py-1.5 px-4 flex items-center rounded-md mr-2 cursor-pointer text-sm"
-            onClick={handleLike}
-          >
-            <span className="pb-0.5 mr-1">
-              {" "}
-              <AiFillLike />
-            </span>
-            <p>Like</p>
-          </div>
-          <div
-            className="bg-red-400 font-semibold py-1.5 px-4 flex items-center rounded-md mr-2 cursor-pointer text-sm"
-            onClick={handleDislike}
-          >
-            <span className="pb-0.5 mr-1">
-              {" "}
-              <AiFillDislike />
-            </span>
-            <p>Dislike</p>
-          </div>
-          <div
-            className="bg-yellow-300 font-semibold py-1.5 px-4 flex items-center rounded-md mr-2 cursor-pointer text-sm"
-            onClick={handleStar}
-          >
-            <span className="pb-0.5 mr-1">
-              {" "}
-              <FaStar />
-            </span>
-            <p>Star</p>
-          </div>
-        </div>
         <div dangerouslySetInnerHTML={{ __html: problem.body }} />
       </div>
     </div>
   );
-}
-
-function useGetCurrentProblem(problemId) {
-  const [currentProblem, setCurrentProblem] = useState(null);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const getCurrentProblem = async () => {
-      setLoading(true);
-      const docRef = doc(firestore, "problems", problemId);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        const problem = docSnap.data();
-        setCurrentProblem({ id: docSnap.id, ...problem });
-      }
-    };
-    getCurrentProblem();
-  }, [problemId]);
-
-  return { currentProblem, loading, setCurrentProblem };
 }
 
 function useGetUsersDataOnProblem(problemId) {
