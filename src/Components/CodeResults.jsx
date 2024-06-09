@@ -3,15 +3,18 @@ import {
   outputAtom,
   codeErrorAtom,
   runCodeOutputAtom,
+  submissionLoadingAtom,
 } from "../atoms/OutputAtom.js";
 import { useRecoilState } from "recoil";
 import { FaStar, FaCheckCircle } from "react-icons/fa";
 import { FaCircleXmark } from "react-icons/fa6";
+import { LuLoader2 } from "react-icons/lu";
 
 export default function CodeResults({ problem }) {
   const [output, setOutput] = useRecoilState(outputAtom);
   const [isError, setIsError] = useRecoilState(codeErrorAtom);
   const [userRunCode, setUserRunCode] = useRecoilState(runCodeOutputAtom);
+  const [submissionLoading, setSubmissionLoading] = useRecoilState(submissionLoadingAtom)
   const [showTab, setShowTab] = useState({
     testing: true,
     output: false,
@@ -98,6 +101,7 @@ export default function CodeResults({ problem }) {
               index={index}
               output={output?.outputs}
               isError={isError}
+              loading={submissionLoading}
             />
           ))}
         </div>
@@ -128,7 +132,7 @@ export default function CodeResults({ problem }) {
   );
 }
 
-function ResultRow({ example, index, output, isError }) {
+function ResultRow({ example, index, output, isError, loading }) {
   const [testResult, setTestResult] = useState("");
   useEffect(() => {
     if (!isError) {
@@ -151,7 +155,7 @@ function ResultRow({ example, index, output, isError }) {
         className="col-span-3 h-10 flex items-center px-3"
         style={{ backgroundColor: index % 2 == 0 ? "rgb(25, 34, 49)" : "" }}
       >
-        <p className="font-semibold">{testResult}</p>
+       {!loading ?  <p className="font-semibold">{testResult}</p> : <span className="animate-spin text-lg"><LuLoader2/></span>}
       </div>
       <div
         className="col-span-3 h-10 flex items-center px-3"
@@ -163,7 +167,7 @@ function ResultRow({ example, index, output, isError }) {
         className="col-span-2 h-10  flex items-center px-3"
         style={{ backgroundColor: index % 2 == 0 ? "rgb(25, 34, 49)" : "" }}
       >
-        {testResult && (
+        {!loading ? <div>{testResult && (
           <p className="font-semibold">
             {testResult === example.output ? (
               <span className="text-green text-xl">
@@ -175,7 +179,8 @@ function ResultRow({ example, index, output, isError }) {
               </span>
             )}
           </p>
-        )}
+        )}</div> : <span className="animate-spin text-xl"><LuLoader2/></span>}
+        
       </div>
     </>
   );

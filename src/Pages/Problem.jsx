@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import Split from "react-split";
 import { auth } from "../firebase/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import useWindowSize from "../hooks/useWindowSize";
 
 
 export default function Problem() {
@@ -30,7 +31,10 @@ export default function Problem() {
   if (!problem) {
     return <div>Problem not found!</div>;
   }
-  
+
+  const { width, height } = useWindowSize();
+  const [showConfetti, setShowConfetti] = useRecoilState(confettiAtom);
+  const [solved, setSolved] = useState(false);
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
 
@@ -40,15 +44,14 @@ export default function Problem() {
     }
   }, [loading, user, navigate]);
 
-  const [showConfetti, setShowConfetti] = useRecoilState(confettiAtom);
-  const [solved, setSolved] = useState(false);
+  
 
   return (
     <section className="flex bg-blue overflow-hidden max-h-screen">
       <CodeNav />
       <ProblemTabs />
       <HorizontalSplit>
-        {showConfetti && <Confetti gravity={0.3} tweenDuration={4000} />}
+        {showConfetti && <Confetti gravity={0.3} tweenDuration={4000} width={width - 1} height={height - 1}/>}
         <ProblemDesc problem={problem} _solved={solved} />
 
         <VerticalSplit>

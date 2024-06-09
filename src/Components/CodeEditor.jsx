@@ -5,11 +5,13 @@ import {
   codeErrorAtom,
   confettiAtom,
   runCodeOutputAtom,
+  submissionLoadingAtom,
 } from "../atoms/OutputAtom.js";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { auth, firestore } from "../firebase/firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { LuLoader2 } from "react-icons/lu";
 
 export default function CodeEditor({ problem, setSolved }) {
   const handleEditorWillMount = (monaco) => {
@@ -53,7 +55,7 @@ export default function CodeEditor({ problem, setSolved }) {
   const [output, setOutput] = useRecoilState(outputAtom);
   const [isError, setIsError] = useRecoilState(codeErrorAtom);
   const [showConfetti, setShowConfetti] = useRecoilState(confettiAtom);
-  const [loading, setLoading] = useState(false);
+  const [submissionLoading, setSubmissionLoading] = useRecoilState(submissionLoadingAtom)
 
   useEffect(() => {
     const code = localStorage.getItem(`code-${problem.id}`);
@@ -94,7 +96,8 @@ export default function CodeEditor({ problem, setSolved }) {
   };
 
   const handleSubmit = async () => {
-    setLoading(true);
+    if(submissionLoading) return
+    setSubmissionLoading(true);
     setOutput([problem.id, ""]);
     setIsError(false);
 
@@ -152,7 +155,7 @@ export default function CodeEditor({ problem, setSolved }) {
       handleProblemCompletion();
     }
 
-    setLoading(false);
+    setSubmissionLoading(false);
   };
 
   const onChange = (value) => {
@@ -214,16 +217,16 @@ export default function CodeEditor({ problem, setSolved }) {
         style={{ background: "rgb(25, 34, 49)" }}
       >
         <button
-          className="mr-4 bg-blue border border-gray-600 py-2 px-3 rounded-md text-sm"
+          className="mr-4 bg-blue border border-gray-600 py-2 px-3 rounded-md text-sm min-w-[90px] flex justify-center"
           onClick={handleRunCode}
         >
-          Run Code
+          {submissionLoading ? <LuLoader2 className="animate-spin text-lg"/>: <span>Run Code</span>}
         </button>
         <button
-          className="bg-green rounded-md py-2 px-3 text-sm"
+          className="bg-green rounded-md py-2 px-3 text-sm min-w-[110px] flex justify-center"
           onClick={handleSubmit}
         >
-          Submit Code
+          {submissionLoading ? <LuLoader2 className="animate-spin text-lg"/> : <span>Submit Code</span>}
         </button>
       </div>
     </div>

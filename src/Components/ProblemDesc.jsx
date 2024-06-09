@@ -219,7 +219,7 @@ export default function ProblemDesc({ problem, _solved }) {
                   <FaThumbsUp />
                 </span>
               </div>
-              <div className="flex items-center text-dull mr-4">
+              <div className="flex items-center text-dull mr-5">
                 <span className="mr-2.5">{currentProblem.dislikes}</span>
                 <span
                   className="text-xl hover:text-red-400 cursor-pointer"
@@ -231,7 +231,7 @@ export default function ProblemDesc({ problem, _solved }) {
               </div>
               <div
                 className="flex items-center text-dull mr-3"
-                style={{ color: starred ? "rgb(253,224,71)" : "" }}
+                style={{ color: starred ? "rgb(234,179,8)" : "" }}
               >
                 <span className="pb-1 text-xl hover:text-yellow-500 cursor-pointer" onClick={handleStar}>
                   <FaStar />

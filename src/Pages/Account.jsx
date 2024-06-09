@@ -128,20 +128,19 @@ export default function Account() {
           </ul>
           <div className="flex justify-center mt-12">
             <span
-              className={`mx-1 px-4 py-2 rounded-md text-dull font-semibold cursor-pointer ${showTabs.showLiked ? "bg-blue" : ""}`}
+              className={`mx-1 px-4 py-2 rounded-md text-dull font-semibold cursor-pointer ${showTabs.showLiked ? "bg-blue text-white" : ""}`}
               onClick={setShowLiked}
-              // style={{backgroundColor: showTabs.showLiked ? }}
             >
               Liked
             </span>
             <span
-              className={`mx-1 px-4 py-2 rounded-md text-dull font-semibold cursor-pointer ${showTabs.showDisliked ? "bg-blue" : ""}`}
+              className={`mx-1 px-4 py-2 rounded-md text-dull font-semibold cursor-pointer ${showTabs.showDisliked ? "bg-blue text-white" : ""}`}
               onClick={setShowDisliked}
             >
               Disliked
             </span>
             <span
-              className={`mx-1 px-4 py-2 rounded-md text-dull font-semibold cursor-pointer ${showTabs.showStarred ? "bg-blue" : ""}`}
+              className={`mx-1 px-4 py-2 rounded-md text-dull font-semibold cursor-pointer ${showTabs.showStarred ? "bg-blue text-white" : ""}`}
               onClick={setShowStarred}
             >
               Starred

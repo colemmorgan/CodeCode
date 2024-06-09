@@ -5,16 +5,23 @@ import { IoListOutline } from "react-icons/io5";
 import { TbBooks } from "react-icons/tb";
 import { FaLaptopCode } from "react-icons/fa";
 import { BsArrowsCollapseVertical } from "react-icons/bs";
+import { FaRegUserCircle } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
 import { MdSunny } from "react-icons/md";
 import { useRecoilState } from "recoil";
-import { ProblemTabsAtom } from "../atoms/ProblemMenuAtom";
+import { ProblemTabsAtom, codeNavTabSelected } from "../atoms/ProblemMenuAtom";
 
 
 export default function CodeNav() {
   
     const [small, setSmall] = useState(false);
     const [isTabsOpen, setIsTabsOpen] = useRecoilState(ProblemTabsAtom)
+    const [dashboardOpen, setDashboardOpen] = useRecoilState(codeNavTabSelected)
+
+    const handleDashboardClick = () => {
+      setIsTabsOpen(!isTabsOpen)
+      setDashboardOpen(!dashboardOpen)
+    }
     return (
       <div
         className={`max-h-screen h-screen bg-blue sidebar relative z-50 ${
@@ -33,40 +40,42 @@ export default function CodeNav() {
                 {small ? "CodeCode" : "CC"}
               </span>
             </Link>
-            <div className=" p-2.5 bg-darkGreen rounded-lg bs mb-2 cursor-pointer hover:bg-darkGreen flex items-center" onClick={() => setIsTabsOpen(!isTabsOpen)}>
+            <div className={`p-2.5 rounded-lg  mb-2 cursor-pointer flex items-center hover:bg-darkGreen ${dashboardOpen ? "bg-darkGreen bs" : ""}`}  onClick={handleDashboardClick}>
               <HiMiniSquares2X2 className="ml-0.5  text-2xl" />
               {small && <span className="pl-4 text-sm">Dashboard</span>}
             </div>
+            <Link to={"/account"}>
             <div className=" p-2.5  rounded-lg  mb-2 cursor-pointer hover:bg-darkGreen flex items-center">
-              <IoListOutline className="ml-0.5  text-2xl" />
+              <FaRegUserCircle className="ml-0.5  text-2xl" />
   
-              {small && <span className="pl-4 text-sm">View All</span>}
+              {small && <span className="pl-4 text-sm">Account</span>}
             </div>
-            <div className=" p-2.5  rounded-lg  mb-2 cursor-pointer hover:bg-darkGreen flex items-center">
+            </Link>
+            <div className=" p-2.5  rounded-lg  mb-2 cursor-not-allowed hover:bg-darkGreen flex items-center">
               <TbBooks className="ml-0.5  text-2xl" />
   
               {small && <span className="pl-4 text-sm">Lessons</span>}
             </div>
-            <div className=" p-2.5  rounded-lg  mb-2 cursor-pointer hover:bg-darkGreen flex items-center">
+            <div className=" p-2.5  rounded-lg  mb-2 cursor-not-allowed hover:bg-darkGreen flex items-center">
               <FaLaptopCode className="ml-0.5  text-2xl" />
   
               {small && <span className="pl-4 text-sm">Problems</span>}
             </div>
           </div>
           <div className="w-full flex flex-col">
-            <div className=" p-3.5 mb-2 cursor-pointer  text-yellow-300 hover:bg-darkGreen flex items-center rounded-lg">
+            <div className=" p-3.5 mb-2  text-yellow-300 hover:bg-darkGreen flex items-center rounded-lg cursor-not-allowed" >
               <MdSunny className="ml-0.5  text-xl" />
   
               {small && <span className="pl-4 text-sm">Dark Mode</span>}
             </div>
-            <div className="p-3.5 mb-2 cursor-pointer  hover:bg-darkGreen flex items-center rounded-lg ">
+            <div className="p-3.5 mb-2   hover:bg-darkGreen flex items-center rounded-lg  cursor-not-allowed">
               <FaGear className="ml-0.5  text-xl" />
   
-              {small && <span className="pl-4 text-sm">Settings</span>}
+              {small && <span className="pl-4 text-sm ">Settings</span>}
             </div>
             <div className="bg-gray-600 h-[1px] w-full mt-4"></div>
             <div
-              className="p-3.5 mb-2 cursor-pointer mt-3 hover:bg-darkGreen flex items-center rounded-lg"
+              className="p-3.5 mb-2 cursor-pointer mt-3 hover:bg-darkGreen flex items-center rounded-lg "
               onClick={() => setSmall((prev) => !prev)}
             >
               <BsArrowsCollapseVertical className="ml-0.5  text-xl" />

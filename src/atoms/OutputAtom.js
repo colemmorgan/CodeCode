@@ -27,13 +27,14 @@ export const codeErrorAtom = atom({
   default: false,
 })
 
+export const submissionLoadingAtom = atom({
+  key: 'submissionLoadingAtom',
+  default: false
+})
+
 export const confettiAtom = atom({
   key:'confettiAtom',
   default: false,
 })
 
-export const resetOutputSelector = selector({
-  key: 'resetOutputSelector',
-  get: ({ get }) => get(outputAtom),
-  set: ({ set }) => set(outputAtom, ''),
-});
+

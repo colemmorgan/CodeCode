@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { FaChevronDown } from "react-icons/fa";
+import { FaChevronDown ,FaCheckCircle } from "react-icons/fa";
 import { FiChevronsLeft } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { ProblemTabsAtom } from "../atoms/ProblemMenuAtom";
+import { useRecoilState, useRecoilCallback } from "recoil";
+import { ProblemTabsAtom, codeNavTabSelected, problemUnitsOpenAtom } from "../atoms/ProblemMenuAtom";
 import { auth } from "../firebase/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import useGetUserData from "../hooks/useGetUserData";
@@ -11,40 +11,85 @@ import useGetUserData from "../hooks/useGetUserData";
 
 export default function ProblemTabs() {
   const [isOpen, setIsOpen] = useRecoilState(ProblemTabsAtom);
+  const [problemUnitOpen, setProblemUnitOpen] = useRecoilState(problemUnitsOpenAtom)
+  const [dashboardOpen, setDashboardOpen] = useRecoilState(codeNavTabSelected)
   const [user] = useAuthState(auth);
   const { liked, disliked, solved, setData, starred } =
     useGetUserData();
 
+
+  const units = [{
+    name: "Basic Iteration",
+    problems: [
+      {
+        id: "basic-string-iteration",
+        name: "Basic String Iteration",
+      },
+      {
+        id: "basic-array-iteration",
+        name: "Basic Array Iteration",
+      },
+      {
+        id: "basic-object-iteration",
+        name: "Basic Object Iteration",
+      }]
+  },
+  {
+    name:"JS Algorithms",
+    problems: [
+      {
+        id: "caesar-cipher",
+        name: "Caesar Cipher",
+      },
+    ]
+  }
+
+
+]
   
-
-  const unit1Problems = [
-    {
-      id: "caesar-cipher",
-      name: "Caesar Cipher",
-    },
-  ];
-
-  const unit2Problems = [
-    {
-      id: "basic-string-iteration",
-      name: "Basic String Iteration",
-    },
-    {
-      id: "basic-array-iteration",
-      name: "Basic Array Iteration",
-    },
-    {
-      id: "basic-object-iteration",
-      name: "Basic Object Iteration",
-    },
-  ];
-
   const unit3Problems = [
     {
       id: "adv-string-iteration",
       name: "Advanced String Iteration",
     },
   ];
+
+  const handleClose = () => {
+    setIsOpen(false)
+    setDashboardOpen(false)
+  }
+
+  const persistState = useRecoilCallback(({ snapshot, set }) => async () => {
+    const currentState = await snapshot.getLoadable(problemUnitsOpenAtom).contents;
+    // Store state in sessionStorage to survive across routes
+    sessionStorage.setItem('problemUnitOpenState', JSON.stringify(currentState));
+  }, []);
+
+  // Restore state on component mount
+  useEffect(() => {
+    const savedState = sessionStorage.getItem('problemUnitOpenState');
+    if (savedState) {
+      setProblemUnitOpen(JSON.parse(savedState));
+    }
+  }, [setProblemUnitOpen]);
+
+  // Ensure state initialization for units
+  useEffect(() => {
+    if (Object.keys(problemUnitOpen).length === 0) {
+      const initialState = units.reduce((acc, _, index) => {
+        acc[`unit${index}`] = false;
+        return acc;
+      }, {});
+      setProblemUnitOpen(initialState);
+    }
+  }, [units, problemUnitOpen, setProblemUnitOpen]);
+
+  useEffect(() => {
+    // Persist state when the component unmounts or when location changes
+    return () => {
+      persistState();
+    };
+  }, [location.pathname, persistState]);
 
 
   return (
@@ -58,7 +103,7 @@ export default function ProblemTabs() {
         <p className=" text-dull ">All Content</p>
         <span
           className="p-2 hover:bg-blue transition-all cursor-pointer rounded-md"
-          onClick={() => setIsOpen(false)}
+          onClick={handleClose}
         >
           <FiChevronsLeft />
         </span>
@@ -75,48 +120,57 @@ export default function ProblemTabs() {
         </button>
       </div>
       <ul className="w-full border-b border-blue">
-        <UnitTab title={"JS Algorithms"} problems={unit1Problems} num={1} solved={solved}/>
-        <UnitTab title={"Basic Iteration"} problems={unit2Problems} num={2} solved={solved}/>
-        <UnitTab
-          title={"Advanced Iteration"}
-          problems={unit2Problems}
-          num={3}
+        {solved && units.map((unit, index) => (
+          <UnitTab
+          unit={unit}
           solved={solved}
+          index={index}
+          key={unit.name}
+          setProblemUnitOpen={setProblemUnitOpen}
+          problemUnitOpen={problemUnitOpen}
         />
+        ))}
       </ul>
     </div>
   );
 }
 
-function UnitTab({ title, problems, num,solved }) {
-  const [isTabOpen, toggleTabOpen] = useState(false);
+function UnitTab({ unit, solved, index, setProblemUnitOpen, problemUnitOpen }) {
+  const isUnitOpen = problemUnitOpen[`unit${index}`] || false;
+
+  const toggleTab = () => {
+    setProblemUnitOpen((prev) => ({
+      ...prev,
+      [`unit${index}`]: !isUnitOpen,
+    }));
+  };
+
   return (
-    <li
-      className="w-full border-t border-blue text-[13px] cursor-pointer "
-      onClick={() => toggleTabOpen(!isTabOpen)}
-    >
-      <div className="flex justify-between items-center py-3.5  px-4 hover:bg-greyBlue">
+    <li className="w-full border-t border-blue text-[13px] cursor-pointer">
+      <div className="flex justify-between items-center py-3.5 px-4 hover:bg-greyBlue" onClick={toggleTab}>
         <p>
-          <span className="mr-1.5">{num}.</span>
-          {title}
+          <span className="mr-1.5">{index + 1}.</span>
+          {unit.name}
         </p>
         <span
           className="transition-all"
-          style={{ transform: isTabOpen ? "rotate(180deg)" : "rotate(0deg)" }}
+          style={{ transform: isUnitOpen ? "rotate(180deg)" : "rotate(0deg)" }}
         >
           <FaChevronDown />
         </span>
       </div>
-      <div className="">
-        {isTabOpen && problems.map((problem, index) => (
-          <ProblemTab
-            problem={problem}
-            index={index}
-            key={problem.id}
-            solved={solved}
-          />
-        ))}
-      </div>
+      {isUnitOpen && (
+        <div>
+          {unit.problems.map((problem, index) => (
+            <ProblemTab
+              problem={problem}
+              index={index}
+              key={problem.id}
+              solved={solved}
+            />
+          ))}
+        </div>
+      )}
     </li>
   );
 }
@@ -128,7 +182,9 @@ function ProblemTab({ problem, index, solved }) {
           <p>
             1.{index + 1} {problem.name}
           </p>
-          <span className={`h-4 w-4 rounded-full border border-lightBlue ${solved.includes(problem.id) ? "bg-green" : ""}`}></span>
+          <span className={`rounded-full border border-lightBlue ${solved.includes(problem.id) ? "border-none text-green" : "h-4 w-4"}`}>
+          {solved.includes(problem.id) && <FaCheckCircle/>}
+          </span>
         </div>
       </Link>
 
