@@ -185,8 +185,8 @@ export default function ProblemDesc({ problem, _solved }) {
   };
 
   return (
-    <div className="container relative overflow-y-scroll custom-scrollbar">
-      <div className="content ">
+    <div className="container relative overflow-y-scroll custom-scrollbar w-full">
+      <div className="content">
         <div className="flex items-center">
           {!currentProblem ? (
             <div className="h-[45px] flex items-center justify-center min-w-72 bg-blue rounded-lg">

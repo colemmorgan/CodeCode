@@ -12,13 +12,14 @@ import { LuLoader2 } from "react-icons/lu";
 
 export default function CodeResults({ problem }) {
   const [output, setOutput] = useRecoilState(outputAtom);
-  const [isError, setIsError] = useRecoilState(codeErrorAtom);
+  const [codeStderr, setCodeStderr] = useRecoilState(codeErrorAtom);
   const [userRunCode, setUserRunCode] = useRecoilState(runCodeOutputAtom);
   const [submissionLoading, setSubmissionLoading] = useRecoilState(submissionLoadingAtom)
   const [showTab, setShowTab] = useState({
     testing: true,
     output: false,
     stdin: false,
+    stderr: false,
   });
 
   const showTesting = () => {
@@ -26,6 +27,7 @@ export default function CodeResults({ problem }) {
       testing: true,
       output: false,
       stdin: false,
+      stderr: false,
     });
   };
   const showOutput = () => {
@@ -33,6 +35,7 @@ export default function CodeResults({ problem }) {
       testing: false,
       output: true,
       stdin: false,
+      stderr: false,
     });
   };
 
@@ -41,8 +44,19 @@ export default function CodeResults({ problem }) {
       testing: false,
       output: false,
       stdin: true,
+      stderr: false,
     });
   };
+
+  const showStderr = () => {
+    setShowTab({
+      testing: false,
+      output: false,
+      stdin: false,
+      stderr: true,
+    });
+  }
+
 
   
 
@@ -79,6 +93,15 @@ export default function CodeResults({ problem }) {
         >
           Stdin
         </p>
+        <p
+          className="mr-2 transition-all rounded-md hover:bg-darkGreen py-2 px-6 cursor-pointer"
+          onClick={showStderr}
+          style={{
+            backgroundColor: showTab.stderr? "rgba(16, 185, 129, 0.1)" : "",
+          }}
+        >
+          Stderr
+        </p>
       </div>
       {showTab.testing && (
         <div className="grid grid-cols-12  text-xs">
@@ -100,7 +123,6 @@ export default function CodeResults({ problem }) {
               key={example.id}
               index={index}
               output={output?.outputs}
-              isError={isError}
               loading={submissionLoading}
             />
           ))}
@@ -112,7 +134,7 @@ export default function CodeResults({ problem }) {
             className="w-full min-h-64 p-3 rounded-md"
             style={{ backgroundColor: "rgb(25, 34, 49)" }}
           >
-            {userRunCode[1]}
+            {userRunCode[1] ? <p>{userRunCode[1]}</p> : <p className="text-sm">"Run Code" output will appear here.</p>}
           </div>
         </div>
       )}
@@ -123,8 +145,18 @@ export default function CodeResults({ problem }) {
             style={{ backgroundColor: "rgb(25, 34, 49)" }}
           >
             {problem.examples.map((example) => (
-              <p className="text-sm mb-1.5">{example.input}</p>
+              <p className="text-sm mb-1.5" key={example.input}>{example.input}</p>
             ))}
+          </div>
+        </div>
+      )}
+      {showTab.stderr && (
+        <div className="w-full h-full py-4 px-4">
+          <div
+            className="w-full min-h-64 p-3 rounded-md"
+            style={{ backgroundColor: "rgb(25, 34, 49)" }}
+          >
+           {codeStderr ? <p>{codeStderr}</p> : <p>No Errors.</p>}
           </div>
         </div>
       )}
@@ -132,17 +164,15 @@ export default function CodeResults({ problem }) {
   );
 }
 
-function ResultRow({ example, index, output, isError, loading }) {
+function ResultRow({ example, index, output, loading }) {
   const [testResult, setTestResult] = useState("");
   useEffect(() => {
-    if (!isError) {
-      try {
-        setTestResult(output[index]);
-      } catch {}
-    } else {
-      setTestResult("Error");
-    }
-  });
+    console.log(output)
+    try {
+      setTestResult(output[index]);
+    } 
+    catch {setTestResult("Error");}
+  },[output])
   return (
     <>
       <div

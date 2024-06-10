@@ -24,7 +24,7 @@ export const codeAtom = atom({
 
 export const codeErrorAtom = atom({
   key: 'codeErrorAtom',
-  default: false,
+  default: "",
 })
 
 export const submissionLoadingAtom = atom({

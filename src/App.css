@@ -91,7 +91,7 @@ body {
 .container {
   background-color: #1e293b; /* greyBlue */
   height: 100%;
-  width: 100%;
+  width: 100% ;
   border-radius: 0.5rem;
   padding-top: 3rem;
   padding-bottom: 1.5rem;
@@ -123,20 +123,6 @@ body {
   border-radius: 0.5rem;
 }
 
-.like-icon,
-.dislike-icon {
-  font-size: 1.5rem;
-  padding-left: 1rem;
-  cursor: pointer;
-}
-
-.like-icon {
-  color: #008000; /* green */
-}
-
-.dislike-icon {
-  color: #ff0000; /* red */
-}
 
 .problem-statement {
   padding-top: 1.5rem;
@@ -262,3 +248,4 @@ body {
     border-radius: 10px;
     border: 3px solid #ffffff;
   }
+

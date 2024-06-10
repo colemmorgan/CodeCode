@@ -7,11 +7,13 @@ import {
   runCodeOutputAtom,
   submissionLoadingAtom,
 } from "../atoms/OutputAtom.js";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { auth, firestore } from "../firebase/firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { FaDownload } from "react-icons/fa";
 import { LuLoader2 } from "react-icons/lu";
+import { IoReload } from "react-icons/io5";
 
 export default function CodeEditor({ problem, setSolved }) {
   const handleEditorWillMount = (monaco) => {
@@ -67,6 +69,8 @@ export default function CodeEditor({ problem, setSolved }) {
   const judge0ApiBaseUrl = import.meta.env.VITE_JUDGE0_API;
 
   const handleRunCode = async () => {
+    if(submissionLoading) return
+    setSubmissionLoading(true);
     const response = await fetch(
       `${judge0ApiBaseUrl}/submissions?base64_encoded=false&wait=true`,
       {
@@ -93,13 +97,14 @@ export default function CodeEditor({ problem, setSolved }) {
         setTestOutput([problem.id, resultData.error]);
       }
     }
+    setSubmissionLoading(false);
   };
 
   const handleSubmit = async () => {
     if(submissionLoading) return
     setSubmissionLoading(true);
     setOutput([problem.id, ""]);
-    setIsError(false);
+    setIsError("");
 
     let outputs = [];
     for (let test of problem.testCode) {
@@ -132,15 +137,16 @@ export default function CodeEditor({ problem, setSolved }) {
             outputs.push(resultData.stdout.trim());
           } else if (resultData.stderr) {
         
-            setIsError(true);
+            setIsError(resultData.stderr);
             outputs.push("Error");
           }
           else {
             outputs.push("Error");
+            setIsError(resultData.stderr)
           }
         }
       } catch (error) {
-        setIsError(true);
+        setIsError(error);
         outputs.push("Error");
       }
     }
@@ -190,19 +196,35 @@ export default function CodeEditor({ problem, setSolved }) {
   };
 
 
-  useEffect(() => {
-    console.log(output)
-  }, [output])
+  const downloadFile = () => {
+    const fileName = `${problem.id}.js`;
+    const blob = new Blob([code], { type: 'application/javascript' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    URL.revokeObjectURL(url);
+    document.body.removeChild(link);
+  };
+
+
+
   
   return (
     <div className="bg-greyBlue rounded-lg  overflow-y-hidden">
       <div
-        className="h-10 mb-4 flex  items-center  text-xs"
+        className="h-10 mb-4 flex  items-center justify-between "
         style={{ background: "rgb(25, 34, 49)" }}
       >
-        <p className="h-full flex items-center px-8 bg-greyBlue">
+        <p className="h-full flex items-center bg-greyBlue px-8 text-xs">
           ShiftCipher.js
         </p>
+        <div className="flex px-8 py-1">
+          <span onClick={downloadFile} className="cursor-pointer p-2 rounded-lg transition-all text-sm hover:bg-lightBlue  mx-2 "><FaDownload /></span>
+          <span onClick={() => setCode("")} className="cursor-pointer p-2 rounded-lg transition-all text-sm hover:bg-lightBlue   mx-1"><IoReload /></span>
+        </div>
       </div>
       <Editor
         height={"80%"}

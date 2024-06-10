@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import Nav from "../Components/Nav";
-import { FaChevronDown, FaGithub } from "react-icons/fa";
 import { FcAbout } from "react-icons/fc";
 import Footer from "../Components/Footer";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase/firebase";
 import { Link } from "react-router-dom";
+import Toc from "../Components/Toc";
 
 function Home() {
   const [user] = useAuthState(auth);
@@ -49,11 +49,11 @@ function Home() {
           </p>
           <div className="mt-8 relative z-40">
             <Link to={user ? "/code" : "/login"}>
-            <button className="rounded-lg  p-[2px] gradient-b group cursor-pointer">
-              <p className="py-2 px-4 bg-greyBlue rounded-md text-sm group-hover:bg-blue">
-                Start Coding
-              </p>
-            </button>
+              <button className="rounded-lg  p-[2px] gradient-b group cursor-pointer">
+                <p className="py-2 px-4 bg-greyBlue rounded-md text-sm group-hover:bg-blue">
+                  Start Coding
+                </p>
+              </button>
             </Link>
             <button className="ml-8 text-md fle cursor-pointer">
               <p>
@@ -93,15 +93,7 @@ function Home() {
       <section className="bg-blue">
         <div className="max-w-[1000px] mx-auto flex flex-col justify-center items-center px-4 pt-24 pb-40">
           <h3 className="font-semibold text-4xl">Table of Contents</h3>
-          <ul className="flex flex-col mt-16 w-full">
-            <TocTab title={"Unit 1: Basic Iteration"} />
-            <TocTab title={"Unit 2: String Manipulation"} />
-            <TocTab title={"Unit 3: No Mutation!"} />
-            <TocTab title={"Unit 4: Map/Filter/Reduce"} />
-            <TocTab title={"Unit 5: Advanced Iteration"} />
-            <TocTab title={"Unit 6: JS Algorithms"} />
-            <TocTab title={"Unit 1: Basic Iteration"} />
-          </ul>
+          <Toc/>
         </div>
       </section>
       <section className="bg-white py-48 rounded-[40px] rounded-t-none">
@@ -126,13 +118,19 @@ function Home() {
           </div>
           <div className="flex flex-col w-1/2 pl-20">
             <figure className="relative h-20">
-              <div className="h-16 w-16 rounded-full overflow-hidden absolute bg-green z-50"/>
-              <div className="h-16 w-16 rounded-full overflow-hidden absolute left-10 bg-lightBlue z-40"/>
-              <div className="h-16 w-16 rounded-full overflow-hidden absolute left-20 bg-purple-500 z-30"/>
-              <div className="h-16 w-16 rounded-full overflow-hidden absolute left-[120px] bg-yellow-400 z-20"/>
+              <div className="h-16 w-16 rounded-full overflow-hidden absolute bg-green z-50" />
+              <div className="h-16 w-16 rounded-full overflow-hidden absolute left-10 bg-lightBlue z-40" />
+              <div className="h-16 w-16 rounded-full overflow-hidden absolute left-20 bg-purple-500 z-30" />
+              <div className="h-16 w-16 rounded-full overflow-hidden absolute left-[120px] bg-yellow-400 z-20" />
             </figure>
-            <p className="text-3xl font-semibold">Built by developers, for <br />developers.</p>
-            <p className="mt-4">CodeCode is designed for students and aspiring developers who wish to continue their pursuit of knowledge and excellence</p>
+            <p className="text-3xl font-semibold">
+              Built by developers, for <br />
+              developers.
+            </p>
+            <p className="mt-4">
+              CodeCode is designed for students and aspiring developers who wish
+              to continue their pursuit of knowledge and excellence
+            </p>
             <p className="flex items-center mt-4 cursor-not-allowed">
               Meet Our Team
               <span className="ml-2">
@@ -149,27 +147,7 @@ function Home() {
 
 export default Home;
 
-function TocTab({ title }) {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <li
-      className={`w-full bg-greyBlue  my-1 rounded-md  transition-all ${
-        isOpen ? "min-h-56" : "min-h-[72px]"
-      }`}
-    >
-      <div className="flex py-4 px-6 items-center justify-between">
-        <p className="font-semibold p-2">{title}</p>
-        <span
-          className="text-lg p-2 cursor-pointer transition-all"
-          onClick={() => setIsOpen(!isOpen)}
-          style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}
-        >
-          <FaChevronDown />
-        </span>
-      </div>
-    </li>
-  );
-}
+
 
 function Card({ title, desc }) {
   return (

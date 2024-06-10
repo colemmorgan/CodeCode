@@ -50,8 +50,9 @@ export default function Problem() {
     <section className="flex bg-blue overflow-hidden max-h-screen">
       <CodeNav />
       <ProblemTabs />
+      <div className="relative min-h-screen w-full">
+      {showConfetti && <Confetti gravity={0.3} tweenDuration={4000} width={width - 1} height={height - 1}/>}
       <HorizontalSplit>
-        {showConfetti && <Confetti gravity={0.3} tweenDuration={4000} width={width - 1} height={height - 1}/>}
         <ProblemDesc problem={problem} _solved={solved} />
 
         <VerticalSplit>
@@ -59,10 +60,10 @@ export default function Problem() {
           <CodeResults problem={problem} />
         </VerticalSplit>
       </HorizontalSplit>
+      </div>
     </section>
   );
 }
-
 function VerticalSplit({ children }) {
   return (
     <Split
@@ -82,7 +83,7 @@ function HorizontalSplit({ children }) {
   <Split
   sizes={[50, 50]}
   direction="horizontal"
-  className="flex p-2.5 overflow-x-hidden "
+  className="flex p-2.5 overflow-x-hidden h-full"
   minSize={0} 
 >
   {children}
