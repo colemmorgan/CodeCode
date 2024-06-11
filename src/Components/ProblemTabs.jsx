@@ -40,12 +40,92 @@ export default function ProblemTabs() {
       ],
     },
     {
+      name: "String Formatting",
+      problems: [
+        {
+          id: "short-scale-formatting",
+          name: "Short Scale Formatting",
+        },
+        {
+          id: "usd-currency-formatting",
+          name: "USD Currency Formatting",
+        },
+        {
+          id: "proper-case-formatting",
+          name: "String Case Formatting",
+        },
+      ],
+    },
+    {
+      name: "No Mutation!",
+      problems: [
+        {
+          id: "array-reversal",
+          name: "Array Reversal",
+        },
+        {
+          id: "object-merge",
+          name: "Object Merge",
+        },
+        {
+          id: "string-replacement",
+          name: " String Replacement",
+        },
+      ],
+    },
+    {
+      name: "Higher-Order Functions",
+      problems: [
+        {
+          id: "filter-even-numbers",
+          name: "Filtering Even Numbers",
+        },
+        {
+          id: "map-to-square-values",
+          name: "Mapping to Square Values",
+        },
+        {
+          id: "reduce-to-sum",
+          name: "Reducing to Sum",
+        },
+        {
+          id: "find-first-negative",
+          name: "Find First Negative",
+        }
+      ]
+    },
+    {
+      name: "Advanced Iteration",
+      problems: [
+        {
+          id: "flatten-nested-array",
+          name: "Flatten Nested Array",
+        },
+        {
+          id: "count-object-keys",
+          name: "Counting Object Keys",
+        },
+        {
+          id: "access-nested-properties",
+          name: "Nested Properties",
+        }
+      ]
+    },
+    {
       name: "JS Algorithms",
       problems: [
         {
           id: "caesar-cipher",
           name: "Caesar Cipher",
         },
+        {
+          id: "count-duplicates",
+          name: "Counting Duplicates",
+        },
+        {
+          id: "fibonacci-sequence",
+          name: "Fibonacci Sequence",
+        }
       ],
     },
   ];
@@ -77,7 +157,6 @@ export default function ProblemTabs() {
     }
   }, [setProblemUnitOpen]);
 
-  // Ensure state initialization for units
   useEffect(() => {
     if (Object.keys(problemUnitOpen).length === 0) {
       const initialState = units.reduce((acc, _, index) => {
@@ -89,7 +168,6 @@ export default function ProblemTabs() {
   }, [units, problemUnitOpen, setProblemUnitOpen]);
 
   useEffect(() => {
-    // Persist state when the component unmounts or when location changes
     return () => {
       persistState();
     };
@@ -97,12 +175,14 @@ export default function ProblemTabs() {
 
   return (
     <div
-      className={`min-h-screen  overflow-y-auto transition-all relative z-50 ${
-        isOpen ? "max-w-[280px] w-full" : "max-w-[0px] w-0 opacity-0"
+      className={`max-h-screen h-screen overflow-y-scroll problem-tabs-scrollbar transition-all relative z-50  ${
+        isOpen
+          ? "min-w-[280px] max-w-[280px] w-full"
+          : "max-w-[0px] w-0 opacity-0"
       }`}
       style={{ background: "rgb(25, 34, 49)" }}
     >
-      <div className="flex justify-between items-center px-4 py-3 border-b border-blue">
+      <div className="flex justify-between items-center px-4 py-3 border-b border-blue ">
         <p className=" text-dull ">All Content</p>
         <span
           className="p-2 hover:bg-blue transition-all cursor-pointer rounded-md"
@@ -127,7 +207,7 @@ export default function ProblemTabs() {
           <UnitTab
             unit={unit}
             solved={solved}
-            index={index}
+            outerIndex={index}
             key={unit.name}
             setProblemUnitOpen={setProblemUnitOpen}
             problemUnitOpen={problemUnitOpen}
@@ -138,13 +218,19 @@ export default function ProblemTabs() {
   );
 }
 
-function UnitTab({ unit, solved, index, setProblemUnitOpen, problemUnitOpen }) {
-  const isUnitOpen = problemUnitOpen[`unit${index}`] || false;
+function UnitTab({
+  unit,
+  solved,
+  outerIndex,
+  setProblemUnitOpen,
+  problemUnitOpen,
+}) {
+  const isUnitOpen = problemUnitOpen[`unit${outerIndex}`] || false;
 
   const toggleTab = () => {
     setProblemUnitOpen((prev) => ({
       ...prev,
-      [`unit${index}`]: !isUnitOpen,
+      [`unit${outerIndex}`]: !isUnitOpen,
     }));
   };
 
@@ -155,7 +241,7 @@ function UnitTab({ unit, solved, index, setProblemUnitOpen, problemUnitOpen }) {
         onClick={toggleTab}
       >
         <p>
-          <span className="mr-1.5">{index + 1}.</span>
+          <span className="mr-1.5">{outerIndex + 1}.</span>
           {unit.name}
         </p>
         <span
@@ -171,6 +257,7 @@ function UnitTab({ unit, solved, index, setProblemUnitOpen, problemUnitOpen }) {
             <ProblemTab
               problem={problem}
               index={index}
+              outerIndex={outerIndex}
               key={problem.id}
               solved={solved}
             />
@@ -181,13 +268,13 @@ function UnitTab({ unit, solved, index, setProblemUnitOpen, problemUnitOpen }) {
   );
 }
 
-function ProblemTab({ problem, index, solved }) {
+function ProblemTab({ problem, index, solved, outerIndex }) {
   return (
     <Link to={`/code/${problem.id}`}>
       {solved ? (
-        <div className="flex justify-between items-center py-2.5 pl-8 pr-4 hover:bg-greyBlue">
+        <div className="flex justify-between items-center py-2.5 pl-6 pr-4 hover:bg-greyBlue">
           <p>
-            1.{index + 1} {problem.name}
+            {outerIndex + 1}.{index + 1} {problem.name}
           </p>
           <span
             className={`rounded-full border border-lightBlue ${

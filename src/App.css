@@ -100,7 +100,7 @@ body {
 }
 
 .content {
-  padding: 0 2rem;
+  padding: 0 1.5rem;
   
 }
 
@@ -249,3 +249,31 @@ body {
     border: 3px solid #ffffff;
   }
 
+.mw {
+  max-width: calc(100vw - 344px);
+}
+
+.mw1 {
+  max-width: calc(100vw - 64px);
+}
+
+
+/* .problem-tabs-scrollbar {
+  scrollbar-width: auto;
+  scrollbar-color:  #1e293b #0c121c;
+} */
+
+
+.problem-tabs-scrollbar::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* .problem-tabs-scrollbar::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+.problem-tabs-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #0c121c;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
+} */

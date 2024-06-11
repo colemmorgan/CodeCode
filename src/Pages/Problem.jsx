@@ -16,6 +16,7 @@ import Split from "react-split";
 import { auth } from "../firebase/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import useWindowSize from "../hooks/useWindowSize";
+import { ProblemTabsAtom, problemUnitsOpenAtom } from "../atoms/ProblemMenuAtom";
 
 
 export default function Problem() {
@@ -36,6 +37,7 @@ export default function Problem() {
   const [showConfetti, setShowConfetti] = useRecoilState(confettiAtom);
   const [solved, setSolved] = useState(false);
   const [user, loading, error] = useAuthState(auth);
+  const [problemTabsOpen, setProblemTabsOpen] = useRecoilState(ProblemTabsAtom)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -52,7 +54,7 @@ export default function Problem() {
       <ProblemTabs />
       <div className="relative min-h-screen w-full">
       {showConfetti && <Confetti gravity={0.3} tweenDuration={4000} width={width - 1} height={height - 1}/>}
-      <HorizontalSplit>
+      <HorizontalSplit problemTabsOpen={problemTabsOpen}>
         <ProblemDesc problem={problem} _solved={solved} />
 
         <VerticalSplit>
@@ -78,12 +80,12 @@ function VerticalSplit({ children }) {
   );
 }
 
-function HorizontalSplit({ children }) {
+function HorizontalSplit({ children, problemTabsOpen}) {
  return (
   <Split
   sizes={[50, 50]}
   direction="horizontal"
-  className="flex p-2.5 overflow-x-hidden h-full"
+  className={`flex p-2.5 overflow-x-hidden h-full ${problemTabsOpen ? "mw" : 'mw1'}`}
   minSize={0} 
 >
   {children}
