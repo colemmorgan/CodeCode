@@ -4,37 +4,37 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="py-28">
-      <div className="flex justify-center">
-        <div className="flex flex-col pr-16 border-r">
+    <footer className="py-20 px-8 lg:py-28">
+      <div className="flex flex-col-reverse items-center lg:justify-center lg:flex-row">
+        <div className="flex flex-col items-center  border-r-none mt-12 lg:min-w-[285px] lg:border-r lg:mt-0 lg:items-start lg:pr-16">
           <p className="text-xl">CodeCode</p>
-          <p className="flex items-center mt-4 text-lg">
+          <p className="flex items-center  mt-4 text-lg">
             <span className="mr-2">
               <FaGithub />
             </span>
             Github
           </p>
           <p className="mt-3 text-sm text-dull">
-            © Copyright 2024 CodeCode. All <br />
+            © Copyright 2024 CodeCode. All 
             Commercial Rights Reserved.
           </p>
         </div>
-        <div className="pl-16 flex">
-            <div className="mr-28">
+        <div className="flex max-w-[730px] w-full justify-between lg:pl-12">
+            <div className="">
                 <p className="text-semibold">Features</p>
                 <ul className="text-dull text-sm">
                     <li className="mt-4">Table of Contents</li>
                     <li className="mt-4">About</li>
                 </ul>
             </div>
-            <div className="mr-32">
+            <div className="">
                 <p className="text-semibold">About</p>
                 <ul className="text-dull text-sm">
                     <li className="mt-4 cursor-not-allowed">Developers</li>
                     <li className="mt-4 cursor-not-allowed">Students</li>
                 </ul>
             </div>
-            <div className="mr-32">
+            <div className="">
                 <p className="text-semibold">Legal</p>
                 <ul className="text-dull text-sm">
                     <li className="mt-4 cursor-not-allowed">Privacy Policy</li>

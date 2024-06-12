@@ -61,7 +61,7 @@ export default function CodeResults({ problem }) {
   
 
   return (
-    <div className="bg-greyBlue rounded-lg overflow-hidden">
+    <div className="bg-greyBlue rounded-lg overflow-hidden min-h-[350px] mt-2 xl:min-h-0 xl:mt-0">
       <div
         className="h-12 px-2 flex items-center text-sm font-semibold text-dull"
         style={{ background: "rgb(25, 34, 49)" }}

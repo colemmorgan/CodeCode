@@ -265,7 +265,7 @@ body {
 
 
 .problem-tabs-scrollbar::-webkit-scrollbar {
-  width: 12px;
+  width: 1px;
 }
 
 /* .problem-tabs-scrollbar::-webkit-scrollbar-track {

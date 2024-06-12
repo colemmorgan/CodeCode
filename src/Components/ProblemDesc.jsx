@@ -9,12 +9,16 @@ import {
 import { auth, firestore } from "../firebase/firebase";
 import React, { useEffect, useState } from "react";
 import { AiFillLike, AiFillDislike } from "react-icons/ai";
-import { FaStar, FaCheckCircle, FaThumbsDown, FaThumbsUp } from "react-icons/fa";
+import {
+  FaStar,
+  FaCheckCircle,
+  FaThumbsDown,
+  FaThumbsUp,
+} from "react-icons/fa";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
 import useGetProblem from "../hooks/useGetProblem";
 import { LuLoader2 } from "react-icons/lu";
-
 
 export default function ProblemDesc({ problem, _solved }) {
   const [user] = useAuthState(auth);
@@ -185,9 +189,9 @@ export default function ProblemDesc({ problem, _solved }) {
   };
 
   return (
-    <div className="container relative overflow-y-scroll custom-scrollbar w-full">
-      <div className="content">
-        <div className="flex items-center">
+    <div className="container relative overflow-y-scroll custom-scrollbar min-w-full xl:min-w-0">
+      <div className="content ">
+        <div className="flex items-center ">
           {!currentProblem ? (
             <div className="h-[45px] flex items-center justify-center min-w-72 bg-blue rounded-lg">
               {" "}
@@ -206,7 +210,11 @@ export default function ProblemDesc({ problem, _solved }) {
         </div>
         <div className="">
           {!currentProblem || updating ? (
-            <div className="h-7 w-40 bg-blue flex items-center justify-center mt-3 rounded-lg"><span className="animate-spin text-lg"><LuLoader2/></span></div>
+            <div className="h-7 w-40 bg-blue flex items-center justify-center mt-3 rounded-lg">
+              <span className="animate-spin text-lg">
+                <LuLoader2 />
+              </span>
+            </div>
           ) : (
             <div className="flex mt-3 text-lg">
               <div className="flex items-center text-dull mr-4">
@@ -233,7 +241,10 @@ export default function ProblemDesc({ problem, _solved }) {
                 className="flex items-center text-dull mr-3"
                 style={{ color: starred ? "rgb(234,179,8)" : "" }}
               >
-                <span className="pb-1 text-xl hover:text-yellow-500 cursor-pointer" onClick={handleStar}>
+                <span
+                  className="pb-1 text-xl hover:text-yellow-500 cursor-pointer"
+                  onClick={handleStar}
+                >
                   <FaStar />
                 </span>
               </div>

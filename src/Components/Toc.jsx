@@ -79,7 +79,7 @@ function TocTab({unit }) {
         </div>
         <div
           ref={contentRef}
-          className="transition-all overflow-hidden"
+          className="transition-all overflow-hidden text-sm sm:text-base"
           style={{ height: `${contentHeight}px` }}
         >
           <div className="py-2">

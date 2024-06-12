@@ -19,18 +19,18 @@ function Home() {
           alt=""
           className="absolute z-[-1] left-1/2 opacity-70 top-[0px]"
         />
-        <div className="max-w-[1280px] mx-auto pb-96 px-8 flex flex-col items-center justify-center relative">
+        <div className="max-w-[1280px] mx-auto px-8 flex flex-col items-center justify-center relative pb-44 md:pb-96">
           {/* Aboslute Images */}
-          <div className="absolute mt-8 top-24 right-[17%] translate-x-1/2 w-[44%] z-20 h-full flex items-center justify-center">
+          <div className="hidden md:flex absolute mt-8 top-24 right-[17%] translate-x-1/2 w-[44%] z-20 h-full  items-center justify-center">
             <img src="./HeroProblemEditor.png" alt="" />
           </div>
-          <div className="absolute z-20 left-[15%] w-[30%] -translate-x-1/2 mt-8 top-60 h-full flex items-center justify-center">
+          <div className="hidden md:flex absolute z-20 left-[15%] w-[30%] -translate-x-1/2 mt-8 top-60 h-full items-center justify-center">
             <img src="./HeroExerciseList.png" alt="" />
           </div>
           <div className="absolute mt-8 top-[18rem] left-1/2 -translate-x-1/2 z-10 h-full w-[80%] flex items-center justify-center">
             <img src="./HeroProblemStatement.png" alt="" />
           </div>
-          <div className="absolute mt-8 top-[39rem] right-[19%] translate-x-1/2 w-[45%] z-20 flex items-center justify-center">
+          <div className="hidden md:flex absolute mt-8 top-[39rem] right-[19%] translate-x-1/2 w-[45%] z-20 items-center justify-center">
             <img src="./HeroFeedback.png" alt="" />
           </div>
           {/*  */}
@@ -96,9 +96,9 @@ function Home() {
           <Toc/>
         </div>
       </section>
-      <section className="bg-white py-48 rounded-[40px] rounded-t-none">
-        <div className="max-w-[1280px] mx-auto px-8 flex text-black">
-          <div className="flex flex-col  w-1/2">
+      <section className="bg-white py-32 rounded-[40px] rounded-t-none lg:py-48">
+        <div className="max-w-[1280px] w-full mx-auto px-8 text-black flex flex-col items-center justify-center lg:flex-row lg:items-start">
+          <div className="flex flex-col  max-w-[500px] text-center items-center mb-16 lg:text-left lg:items-start lg:w-1/2">
             <span className="text-7xl">
               <FcAbout />
             </span>
@@ -116,8 +116,8 @@ function Home() {
               </span>
             </p>
           </div>
-          <div className="flex flex-col w-1/2 pl-20">
-            <figure className="relative h-20">
+          <div className="flex flex-col max-w-[500px] text-center items-center lg:text-left lg:items-start lg:pl-16 lg:w-1/2">
+            <figure className="relative h-20 pr-44">
               <div className="h-16 w-16 rounded-full overflow-hidden absolute bg-green z-50" />
               <div className="h-16 w-16 rounded-full overflow-hidden absolute left-10 bg-lightBlue z-40" />
               <div className="h-16 w-16 rounded-full overflow-hidden absolute left-20 bg-purple-500 z-30" />

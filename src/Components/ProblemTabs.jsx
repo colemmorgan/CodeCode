@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaChevronDown, FaCheckCircle } from "react-icons/fa";
 import { FiChevronsLeft } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -91,8 +91,8 @@ export default function ProblemTabs() {
         {
           id: "find-first-negative",
           name: "Find First Negative",
-        }
-      ]
+        },
+      ],
     },
     {
       name: "Advanced Iteration",
@@ -108,8 +108,8 @@ export default function ProblemTabs() {
         {
           id: "access-nested-properties",
           name: "Nested Properties",
-        }
-      ]
+        },
+      ],
     },
     {
       name: "JS Algorithms",
@@ -125,8 +125,12 @@ export default function ProblemTabs() {
         {
           id: "fibonacci-sequence",
           name: "Fibonacci Sequence",
-        }
+        },
       ],
+    },
+    {
+      name: "Put It All Together",
+      problems: [{ id: "test", name: "test" }],
     },
   ];
 
@@ -160,7 +164,7 @@ export default function ProblemTabs() {
   useEffect(() => {
     if (Object.keys(problemUnitOpen).length === 0) {
       const initialState = units.reduce((acc, _, index) => {
-        acc[`unit${index}`] = false;
+        acc[`unit${index + 1}`] = false;
         return acc;
       }, {});
       setProblemUnitOpen(initialState);
@@ -177,7 +181,7 @@ export default function ProblemTabs() {
     <div
       className={`max-h-screen h-screen overflow-y-scroll problem-tabs-scrollbar transition-all relative z-50  ${
         isOpen
-          ? "min-w-[280px] max-w-[280px] w-full"
+          ? "min-w-[290px] max-w-[290px] w-full"
           : "max-w-[0px] w-0 opacity-0"
       }`}
       style={{ background: "rgb(25, 34, 49)" }}
@@ -191,23 +195,23 @@ export default function ProblemTabs() {
           <FiChevronsLeft />
         </span>
       </div>
-      <div className="py-2 flex text-dull justify-center px-2">
-        <button className="text-sm px-3 py-1.5 bg-green bg-opacity-10 rounded-lg mx-1 min-w-[82px]">
+      <div className="py-2 flex text-dull justify-center px-3">
+        <button className="text-sm px-2.5 py-1.5 bg-green bg-opacity-10 rounded-md mx-1 min-w-[82px]">
           View All
         </button>
-        <button className="text-sm px-3 py-1.5  bg-opacity-10 rounded-lg mx-1">
+        <button className="text-sm px-3 py-1.5  bg-opacity-10 rounded-lg mx-1 cursor-not-allowed">
           Problems
         </button>
-        <button className="text-sm px-3 py-1.5  bg-opacity-10 rounded-lg mx-1">
+        <button className="text-sm px-3 py-1.5  bg-opacity-10 rounded-lg mx-1 cursor-not-allowed">
           Lessons
         </button>
       </div>
-      <ul className="w-full border-b border-blue">
+      <ul className="w-full border-b border-blue mb-12">
         {units.map((unit, index) => (
           <UnitTab
             unit={unit}
             solved={solved}
-            outerIndex={index}
+            outerIndex={index + 1}
             key={unit.name}
             setProblemUnitOpen={setProblemUnitOpen}
             problemUnitOpen={problemUnitOpen}
@@ -234,6 +238,19 @@ function UnitTab({
     }));
   };
 
+  const contentRef = useRef(null);
+  const [contentHeight, setContentHeight] = useState(0);
+
+  useEffect(() => {
+    if (isUnitOpen) {
+      setContentHeight(contentRef.current.scrollHeight);
+    } else {
+      setContentHeight(0);
+    }
+  }, [isUnitOpen]);
+
+  
+
   return (
     <li className="w-full border-t border-blue text-[13px] cursor-pointer">
       <div
@@ -241,7 +258,7 @@ function UnitTab({
         onClick={toggleTab}
       >
         <p>
-          <span className="mr-1.5">{outerIndex + 1}.</span>
+          <span className="mr-2">{outerIndex}.</span>
           {unit.name}
         </p>
         <span
@@ -251,8 +268,8 @@ function UnitTab({
           <FaChevronDown />
         </span>
       </div>
-      {isUnitOpen && (
-        <div>
+
+        <div style={{height: contentHeight}} className="transition-all overflow-hidden" ref={contentRef}>
           {unit.problems.map((problem, index) => (
             <ProblemTab
               problem={problem}
@@ -263,18 +280,18 @@ function UnitTab({
             />
           ))}
         </div>
-      )}
     </li>
   );
 }
 
 function ProblemTab({ problem, index, solved, outerIndex }) {
+
   return (
     <Link to={`/code/${problem.id}`}>
       {solved ? (
         <div className="flex justify-between items-center py-2.5 pl-6 pr-4 hover:bg-greyBlue">
           <p>
-            {outerIndex + 1}.{index + 1} {problem.name}
+            {outerIndex}.{index + 1} {problem.name}
           </p>
           <span
             className={`rounded-full border border-lightBlue ${

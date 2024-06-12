@@ -213,7 +213,7 @@ export default function CodeEditor({ problem, setSolved }) {
 
   
   return (
-    <div className="bg-greyBlue rounded-lg  overflow-y-hidden">
+    <div className="bg-greyBlue rounded-lg  overflow-y-hidden min-h-[575px] mt-2 xl:min-h-0 xl:mt-0">
       <div
         className="h-10 mb-4 flex  items-center justify-between "
         style={{ background: "rgb(25, 34, 49)" }}
