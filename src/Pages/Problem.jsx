@@ -19,9 +19,10 @@ import {
 import problems from "../problems";
 
 export default function Problem() {
-  
+  const problems_ = problems;
+
   const { problemId } = useParams();
-  const problem = problems[problemId];
+  const problem = problems_[problemId];
 
   if (!problem) {
     return <div>Problem not found!</div>;
