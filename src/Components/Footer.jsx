@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="py-20 px-8 lg:py-28">
       <div className="flex flex-col-reverse items-center lg:justify-center lg:flex-row">
-        <div className="flex flex-col items-center  border-r-none mt-12 lg:min-w-[285px] lg:border-r lg:mt-0 lg:items-start lg:pr-16">
+        <div className="flex flex-col items-center  border-r-none mt-12 lg:max-w-[320px] lg:border-r lg:mt-0 lg:items-start lg:pr-16">
           <p className="text-xl">CodeCode</p>
           <p className="flex items-center  mt-4 text-lg">
             <span className="mr-2">

@@ -98,7 +98,7 @@ function Home() {
       </section>
       <section className="bg-white py-32 rounded-[40px] rounded-t-none lg:py-48">
         <div className="max-w-[1280px] w-full mx-auto px-8 text-black flex flex-col items-center justify-center lg:flex-row lg:items-start">
-          <div className="flex flex-col  max-w-[500px] text-center items-center mb-16 lg:text-left lg:items-start lg:w-1/2">
+          <div className="flex flex-col  max-w-[550px] text-center items-center mb-16 lg:text-left lg:items-start lg:w-1/2">
             <span className="text-7xl">
               <FcAbout />
             </span>
@@ -116,7 +116,7 @@ function Home() {
               </span>
             </p>
           </div>
-          <div className="flex flex-col max-w-[500px] text-center items-center lg:text-left lg:items-start lg:pl-16 lg:w-1/2">
+          <div className="flex flex-col max-w-[550px] text-center items-center lg:text-left lg:items-start lg:pl-16 lg:w-1/2">
             <figure className="relative h-20 pr-44">
               <div className="h-16 w-16 rounded-full overflow-hidden absolute bg-green z-50" />
               <div className="h-16 w-16 rounded-full overflow-hidden absolute left-10 bg-lightBlue z-40" />
