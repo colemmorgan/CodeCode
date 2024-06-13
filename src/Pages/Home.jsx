@@ -42,10 +42,11 @@ function Home() {
             <br />
             Computing Education
           </h1>
+
           <p className="max-w-2xl mt-8 text-center text-sm text-dull leading-8">
-            Edugator is a platform where any UF student can practice computing
-            concepts with rich immediate feedback. Designed to promote
-            experiential life-long learning for computing learners.
+            CodeCode is a platform where anyone can practice computing concepts
+            with rich immediate feedback.Designed to promote experiential
+            life-long learning for computing learners.
           </p>
           <div className="mt-8 relative z-40">
             <Link to={user ? "/code" : "/login"}>
@@ -66,9 +67,9 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="bg-blue relative">
+      <section className="bg-blue relative" id="about">
         {/* <img src="./test.png" alt="" className="absolute max-w-[900px] -bottom-[370px] left-1/2 -translate-x-1/2 rounded-md"/> */}
-        <div className="w-full rounded-[40px] rounded-t-none bg-white pt-28 pb-40 text-blue">
+        <div className="w-full rounded-[40px] rounded-t-none bg-white   text-blue pb-32 pt-12 lg:pt-28 lg:pb-40">
           <div className="max-w-[1380px] flex flex-col itemx-center justify-center px-8 mx-auto">
             <div className="pt-24 pb-4 text-center">
               <p className="text-lightBlue font-medium font-sm tracking-[1.4px] pb-4">
@@ -83,19 +84,17 @@ function Home() {
               </p>
             </div>
             <div className="flex flex-wrap items-center  justify-center w-full">
-              <Card title={"Learn"} />
-              <Card title={"Code"} />
-              <Card title={"Practice"} />
+              <Card title={"Learn"} desc={"Learn the fundamentals of computer science with our interactive lessonsand practice exercises"} />
+              <Card title={"Code"}  desc={"Code in a complete text editor with auto-complete and error highlighting tools."}/>
+              <Card title={"Practice"} desc={"Practice anytime anywhere. Complete problems at your own rate."}/>
             </div>
           </div>
         </div>
       </section>
-      <section className="bg-blue">
-        <div className="max-w-[1000px] mx-auto flex flex-col justify-center items-center px-4 pt-24 pb-40">
-          <h3 className="font-semibold text-4xl">Table of Contents</h3>
-          <Toc/>
-        </div>
+      <section className="bg-blue" id="toc">
+        <Toc />
       </section>
+
       <section className="bg-white py-32 rounded-[40px] rounded-t-none lg:py-48">
         <div className="max-w-[1280px] w-full mx-auto px-8 text-black flex flex-col items-center justify-center lg:flex-row lg:items-start">
           <div className="flex flex-col  max-w-[550px] text-center items-center mb-16 lg:text-left lg:items-start lg:w-1/2">
@@ -118,10 +117,10 @@ function Home() {
           </div>
           <div className="flex flex-col max-w-[550px] text-center items-center lg:text-left lg:items-start lg:pl-16 lg:w-1/2">
             <figure className="relative h-20 pr-44">
-              <div className="h-16 w-16 rounded-full overflow-hidden absolute bg-green z-50" />
-              <div className="h-16 w-16 rounded-full overflow-hidden absolute left-10 bg-lightBlue z-40" />
-              <div className="h-16 w-16 rounded-full overflow-hidden absolute left-20 bg-purple-500 z-30" />
-              <div className="h-16 w-16 rounded-full overflow-hidden absolute left-[120px] bg-yellow-400 z-20" />
+              <div className="h-16 w-16 rounded-full overflow-hidden absolute bg-green z-40" />
+              <div className="h-16 w-16 rounded-full overflow-hidden absolute left-10 bg-lightBlue z-30" />
+              <div className="h-16 w-16 rounded-full overflow-hidden absolute left-20 bg-purple-500 z-20" />
+              <div className="h-16 w-16 rounded-full overflow-hidden absolute left-[120px] bg-yellow-400 z-10" />
             </figure>
             <p className="text-3xl font-semibold">
               Built by developers, for <br />
@@ -147,8 +146,6 @@ function Home() {
 
 export default Home;
 
-
-
 function Card({ title, desc }) {
   return (
     <div className="flex flex-col items-start max-w-96 w-full mx-4 mt-8 ">
@@ -166,8 +163,7 @@ function Card({ title, desc }) {
       </div>
       <h3 className="pt-4 text-xl font-semibold">{title}</h3>
       <p className="pt-2 text-gray-500">
-        Learn the fundamentals of computer science with our interactive lessons
-        and practice exercises.
+        {desc}
       </p>
     </div>
   );

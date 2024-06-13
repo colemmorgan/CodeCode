@@ -156,7 +156,7 @@ export default function CodeResults({ problem }) {
             className="w-full min-h-64 p-3 rounded-md"
             style={{ backgroundColor: "rgb(25, 34, 49)" }}
           >
-           {codeStderr ? <p>{codeStderr}</p> : <p>No Errors.</p>}
+           {codeStderr ? <p>{codeStderr.message}</p> : <p>No Errors.</p>}
           </div>
         </div>
       )}

@@ -14,27 +14,27 @@ export default function Footer() {
             </span>
             Github
           </p>
-          <p className="mt-3 text-sm text-dull">
+          <p className="mt-3 text-sm text-dull text-center lg:text-left">
             © Copyright 2024 CodeCode. All 
             Commercial Rights Reserved.
           </p>
         </div>
-        <div className="flex max-w-[730px] w-full justify-between lg:pl-12">
-            <div className="">
+        <div className="flex max-w-[730px] w-full justify-center lg:pl-12 sm:justify-around ">
+            <div className="mr-16 sm:mr-0">
                 <p className="text-semibold">Features</p>
                 <ul className="text-dull text-sm">
-                    <li className="mt-4">Table of Contents</li>
-                    <li className="mt-4">About</li>
+                    <a href="#toc"><li className="mt-4">Table of Contents</li></a>
+                    <a href="#about"><li className="mt-4">About</li></a>
                 </ul>
             </div>
-            <div className="">
+            <div className="hidden md:block">
                 <p className="text-semibold">About</p>
                 <ul className="text-dull text-sm">
                     <li className="mt-4 cursor-not-allowed">Developers</li>
                     <li className="mt-4 cursor-not-allowed">Students</li>
                 </ul>
             </div>
-            <div className="">
+            <div className="hidden sm:block">
                 <p className="text-semibold">Legal</p>
                 <ul className="text-dull text-sm">
                     <li className="mt-4 cursor-not-allowed">Privacy Policy</li>
