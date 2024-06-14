@@ -1,6 +1,6 @@
 export const NonMutatingObjectMerge = {
-    id: "non-mutating-object-merge",
-    title: "Non-Mutating Object Merge",
+    id: "object-merge",
+    title: "Object Merge",
     examples: [
       {
         id: 1,

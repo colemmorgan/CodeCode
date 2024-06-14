@@ -130,7 +130,7 @@ export default function ProblemTabs() {
     },
     {
       name: "Put It All Together",
-      problems: [{ id: "test", name: "test" }],
+      problems: [{ id: "", name: "Coming Soon" }],
     },
   ];
 
@@ -179,11 +179,11 @@ export default function ProblemTabs() {
 
   return (
     <div
-      className={`max-h-screen h-screen overflow-y-scroll problem-tabs-scrollbar transition-all relative z-50  ${
+      className={`max-h-screen h-screen overflow-y-scroll problem-tabs-scrollbar transition-all  z-50  ${
         isOpen
           ? "min-w-[290px] max-w-[290px] w-full"
           : "max-w-[0px] w-0 opacity-0"
-      }`}
+      } fixed left-20 lg:static`}
       style={{ background: "rgb(25, 34, 49)" }}
     >
       <div className="flex justify-between items-center px-4 py-3 border-b border-blue ">

@@ -1,6 +1,6 @@
 export const NonMutatingArrayReversal = {
-    id: "non-mutating-array-reversal",
-    title: "Non-Mutating Array Reversal",
+    id: "array-reversal",
+    title: "Array Reversal",
     examples: [
       {
         id: 1,

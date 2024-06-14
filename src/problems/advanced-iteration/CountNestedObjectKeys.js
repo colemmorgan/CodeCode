@@ -1,6 +1,6 @@
 export const CountNestedObjectKeys = {
-  id: "count-nested-object-keys",
-  title: "Counting Nested Object Keys",
+  id: "count-object-keys",
+  title: "Counting Object Keys",
   examples: [
     {
       id: 1,

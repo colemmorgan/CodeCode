@@ -50,6 +50,14 @@ body {
 /* #10b981, #1098b9 */
 
 
+/* images */
+
+.exercises-img {
+  transform: scale(0.85);
+}
+
+/*  */
+
 .fu {
   min-height: calc(100vh - 64px);
 }
@@ -278,3 +286,9 @@ body {
   border-radius: 10px;
   border: 3px solid #ffffff;
 } */
+
+
+
+.monaco-editor {
+  overflow: hidden !important;
+}

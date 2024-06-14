@@ -19,15 +19,15 @@ function Home() {
           alt=""
           className="absolute z-[-1] left-1/2 opacity-70 top-[0px]"
         />
-        <div className="max-w-[1280px] mx-auto px-8 flex flex-col items-center justify-center relative pb-44 md:pb-96">
+        <div className="max-w-[1280px] mx-auto px-6 sm:px-8 flex flex-col items-center justify-center relative pb-24 sm:pb-44 md:pb-96">
           {/* Aboslute Images */}
           <div className="hidden md:flex absolute mt-8 top-24 right-[17%] translate-x-1/2 w-[44%] z-20 h-full  items-center justify-center">
             <img src="./HeroProblemEditor.png" alt="" />
           </div>
-          <div className="hidden md:flex absolute z-20 left-[15%] w-[30%] -translate-x-1/2 mt-8 top-60 h-full items-center justify-center">
-            <img src="./HeroExerciseList.png" alt="" />
+          <div className="hidden md:flex absolute z-20 left-[15%] w-[30%] -translate-x-1/2 mt-8 top-60 h-full items-center justify-center ">
+            <img src="./HeroExerciseList.png" alt=""  className="exercises-img"/>
           </div>
-          <div className="absolute mt-8 top-[18rem] left-1/2 -translate-x-1/2 z-10 h-full w-[80%] flex items-center justify-center">
+          <div className="hidden sm:flex absolute mt-8 top-[18rem] left-1/2 -translate-x-1/2 z-10 h-full w-[80%]  items-center justify-center">
             <img src="./HeroProblemStatement.png" alt="" />
           </div>
           <div className="hidden md:flex absolute mt-8 top-[39rem] right-[19%] translate-x-1/2 w-[45%] z-20 items-center justify-center">
@@ -37,7 +37,7 @@ function Home() {
           <span className="py-1 px-4 border border-gray-700 rounded-lg text-xs bgg">
             Introducing CodeCode
           </span>
-          <h1 className="mt-8 text-5xl text-center font-semibold line-height leading-tight text-greyText">
+          <h1 className="mt-8 text-4xl sm:text-5xl text-center font-semibold line-height leading-tight text-greyText">
             Experience the <span className="gradient-text">Future</span> of{" "}
             <br />
             Computing Education
@@ -45,7 +45,7 @@ function Home() {
 
           <p className="max-w-2xl mt-8 text-center text-sm text-dull leading-8">
             CodeCode is a platform where anyone can practice computing concepts
-            with rich immediate feedback.Designed to promote experiential
+            with rich immediate feedback. Designed to promote experiential
             life-long learning for computing learners.
           </p>
           <div className="mt-8 relative z-40">
@@ -68,10 +68,9 @@ function Home() {
         </div>
       </section>
       <section className="bg-blue relative" id="about">
-        {/* <img src="./test.png" alt="" className="absolute max-w-[900px] -bottom-[370px] left-1/2 -translate-x-1/2 rounded-md"/> */}
         <div className="w-full rounded-[40px] rounded-t-none bg-white   text-blue pb-32 pt-12 lg:pt-28 lg:pb-40">
-          <div className="max-w-[1380px] flex flex-col itemx-center justify-center px-8 mx-auto">
-            <div className="pt-24 pb-4 text-center">
+          <div className="max-w-[1380px] flex flex-col itemx-center justify-center px-2 sm:px-8 mx-auto">
+            <div className="pt-20 pb-4 text-center">
               <p className="text-lightBlue font-medium font-sm tracking-[1.4px] pb-4">
                 LEARNING REIMAGINED
               </p>

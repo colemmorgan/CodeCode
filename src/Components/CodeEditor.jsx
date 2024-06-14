@@ -16,8 +16,11 @@ import { LuLoader2 } from "react-icons/lu";
 import { IoReload } from "react-icons/io5";
 
 export default function CodeEditor({ problem, setSolved }) {
+
+  const editorOptions = {
+    scrollBeyondLastLine: false,
+    minimap: { enabled: false },}
   const handleEditorWillMount = (monaco) => {
-    // Define the custom theme
     monaco.editor.defineTheme("default", {
       base: "vs-dark",
       inherit: true,
@@ -230,6 +233,7 @@ export default function CodeEditor({ problem, setSolved }) {
         height={"80%"}
         defaultLanguage="javascript"
         theme="default"
+        options={editorOptions}
         value={code}
         onChange={(value) => onChange(value)}
         beforeMount={handleEditorWillMount}

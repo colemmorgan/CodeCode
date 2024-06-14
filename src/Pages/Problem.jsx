@@ -42,7 +42,7 @@ export default function Problem() {
   }, [loading, user, navigate]);
 
   return (
-    <section className="flex bg-blue ">
+    <section className="flex bg-blue  max-w-screen overflow-x-hidden overflow-y-hidden">
       <CodeNav />
       <ProblemTabs />
       <div className="relative max-h-screen min-h-screen w-full hidden xl:block overflow-hidden ">
@@ -55,7 +55,7 @@ export default function Problem() {
         </HorizontalSplit>
       </div>
       {/* small screens */}
-      <div className="relative flex flex-col p-2 w-full xl:hidden">
+      <div className="relative flex flex-col p-2 w-full overflow-y-scroll max-h-screen xl:hidden max-w-full">
         {showConfetti && (
           <Confetti
             gravity={0.3}

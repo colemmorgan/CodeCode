@@ -20,8 +20,8 @@ export default function Code() {
     <section className="flex bg-blue">
       <CodeNav />
       <ProblemTabs/>
-      <div className="relative w-full flex items-center justify-center">
-    <div className="code-gradient"></div>
+      <div className="relative w-full flex items-center justify-center h-screen">
+    <div className="code-gradient "></div>
       <div id="blur"></div>
         <div className="z-10 flex flex-col items-center">
         <CodeSvg/>
