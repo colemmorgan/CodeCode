@@ -22,11 +22,14 @@ import { LuLoader2 } from "react-icons/lu";
 
 export default function ProblemDesc({ problem, _solved }) {
   const [user] = useAuthState(auth);
+  
   const { currentProblem, loading, setCurrentProblem } = useGetProblem(
     problem.id
   );
   const { liked, disliked, solved, setData, starred } =
     useGetUsersDataOnProblem(problem.id);
+
+
   const [updating, setUpdating] = useState(false);
 
   const returnUserDataAndProblemData = async (transaction) => {

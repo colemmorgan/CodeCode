@@ -23,7 +23,7 @@ export default function CodeNav() {
   };
   return (
     <div
-      className={`max-h-screen h-screen sidebar bg-blue absolute md:relative z-50 transition-all ${
+      className={`max-h-screen h-screen sidebar bg-blue absolute md:relative z-40 transition-all ${
         small ? "small" : "large"
       } ${isTabsOpen ? "" : "bg-blue lg:bg-greyBlue"}
       ${hideCodeNav ? "translate-x-[-80px] md:translate-x-0" : "translate-x-0"}`}

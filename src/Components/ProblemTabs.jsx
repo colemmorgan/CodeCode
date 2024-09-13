@@ -179,7 +179,7 @@ export default function ProblemTabs() {
 
   return (
     <div
-      className={`max-h-screen h-screen overflow-y-scroll problem-tabs-scrollbar transition-all  z-50  ${
+      className={`max-h-screen h-screen overflow-y-scroll problem-tabs-scrollbar transition-all  z-40  ${
         isOpen
           ? "min-w-[290px] max-w-[290px] w-full"
           : "max-w-[0px] w-0 opacity-0"

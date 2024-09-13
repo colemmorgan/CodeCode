@@ -56,14 +56,14 @@ function Home() {
                 </p>
               </button>
             </Link>
-            <button className="ml-8 text-md fle cursor-pointer">
-              <p>
+            <a className="ml-8 text-md cursor-pointer" href="#toc">
+              <span>
                 Learn More{" "}
                 <span className="ml-1">
                   <FaArrowRightLong className="inline" />
                 </span>
-              </p>{" "}
-            </button>
+              </span>{" "}
+            </a>
           </div>
         </div>
       </section>
@@ -167,3 +167,5 @@ function Card({ title, desc }) {
     </div>
   );
 }
+
+
