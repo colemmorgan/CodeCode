@@ -13,7 +13,7 @@ function Home() {
   return (
     <>
       <Nav />
-      <section className="bg-blue relative py-24 sm:py-28 z-10 overflow-x-hidden">
+      <section className="bg-blue relative py-24 sm:py-28 z-10">
         <img
           src="./HeroGradient.png"
           alt=""
