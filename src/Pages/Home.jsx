@@ -13,7 +13,7 @@ function Home() {
   return (
     <>
       <Nav />
-      <section className="bg-blue relative py-28 z-10 overflow-x-hidden">
+      <section className="bg-blue relative py-24 sm:py-28 z-10 overflow-x-hidden">
         <img
           src="./HeroGradient.png"
           alt=""
@@ -37,9 +37,9 @@ function Home() {
           <span className="py-1 px-4 border border-gray-700 rounded-lg text-xs bgg">
             Introducing CodeCode
           </span>
-          <h1 className="mt-8 text-4xl sm:text-5xl text-center font-semibold line-height leading-tight text-greyText">
+          <h1 className="mt-8 text-3xl sm:text-5xl text-center font-semibold line-height leading-tight text-greyText">
             Experience the <span className="gradient-text">Future</span> of{" "}
-            <br />
+            <br className="hidden sm:inline"/>
             Computing Education
           </h1>
 
