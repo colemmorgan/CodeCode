@@ -89,14 +89,14 @@ export default function Account() {
           <div className="flex">
             <span className="h-12 w-12 bg-lightBlue rounded-full mr-4"></span>
             <div className="">
-              <p className="text-xl font-semibold">Cole Morgan</p>
+              <p className="text-xl font-semibold">First Last</p>
 
               <p className=" mt-[1px] text-dull">
                 {user ? user.email : "No user"}
               </p>
             </div>
           </div>
-          <button className="bg-greyBlue px-6 py-2.5 rounded-md border border-lightBlue text-sm">
+          <button className="bg-greyBlue px-6 py-2.5 rounded-md border border-lightBlue text-sm cursor-not-allowed">
             Edit Profile
           </button>
         </div>

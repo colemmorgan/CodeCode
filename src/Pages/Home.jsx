@@ -17,7 +17,7 @@ function Home() {
         <img
           src="./HeroGradient.png"
           alt=""
-          className="absolute z-[-1] left-1/2 opacity-70 top-[0px]"
+          className="absolute z-[-1] left-1/2 opacity-70 top-[0px] hidden sm:block"
         />
         <div className="max-w-[1280px] mx-auto px-6 sm:px-8 flex flex-col items-center justify-center relative pb-24 sm:pb-44 md:pb-96">
           {/* Aboslute Images */}

@@ -28,7 +28,7 @@ export default function Nav() {
         <div className=" h-16 px-8  mx-auto flex items-center ">
           <div className="text-xl font-semibold w-1/4">CodeCode</div>
 
-          <ul className="flex w-1/2 justify-center">
+          <ul className={`flex w-1/2 justify-center ${user ? "" : "pl-10"}`}>
             <Link to={"/"}>
               <li className="text-sm px-4 py-2 mx-5 link-hover rounded-lg cursor-pointer">
                 Home
@@ -41,15 +41,17 @@ export default function Nav() {
               </li>
             </a>
             <a href="#toc">
-            <li className="text-sm px-4 py-2 mx-5 link-hover rounded-lg cursor-pointer">
-              Table of Cont.
-            </li>
-            </a>
-            <Link to={`/account`}>
               <li className="text-sm px-4 py-2 mx-5 link-hover rounded-lg cursor-pointer">
-                Account
+                Table of Cont.
               </li>
-            </Link>
+            </a>
+            {user && (
+              <Link to={`/account`}>
+                <li className="text-sm px-4 py-2 mx-5 link-hover rounded-lg cursor-pointer">
+                  Account
+                </li>
+              </Link>
+            )}
           </ul>
           <div className="flex items-center w-1/4 justify-end">
             {user ? (

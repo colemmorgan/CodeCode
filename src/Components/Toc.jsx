@@ -41,7 +41,7 @@ export default function Toc() {
         <h3 className="font-semibold text-4xl">Table of Contents</h3>
         <ul className="flex flex-col mt-16 w-full">
           {units.map((unit) => (
-            <TocTab unit={unit} />
+            <TocTab unit={unit} key={unit.title}/>
           ))}
         </ul>
       </div>
